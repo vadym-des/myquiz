@@ -1,5 +1,14 @@
-const APP_VERSION = "v7.4.0";
+const APP_VERSION = "v7.5.0";
 const VERSION_HISTORY = [
+    {
+        version: "v7.5.0",
+        date: "2026-11-05",
+        changes: [
+            "✨ Нові фічі та покращення: Масове наповнення бази контексту — інтегровано 2580+ речень-прикладів із перекладами для всіх 15 юнітів курсу з повною підтримкою шторки помилок та режимів вивчення",
+            "✨ Нові фічі та покращення: Додано підтримку юніт-специфічного контексту (module-scoped context resolution) для точного підбору речень навіть для слів з кількома значеннями в різних темах",
+            "🐛 Виправлені баги: Виправлено парсинг речень із внутрішніми дужками (наприклад, абревіатури GP, MP, PM) — український переклад тепер коректно відокремлюється за останнім блоком дужок"
+        ]
+    },
     {
         version: "v7.4.0",
         date: "2026-11-05",
@@ -1088,7 +1097,8 @@ function renderLastMistakeDrawerContent() {
 
     const enWord = lastMistakeData.en || lastMistakeData.question || '';
     const uaWord = lastMistakeData.ua || (lastMistakeData.question === enWord ? lastMistakeData.answer : lastMistakeData.question);
-    const rawCtx = getContextForWord(enWord);
+    const targetModule = lastMistakeData.module || selectedModule || '';
+    const rawCtx = getContextForWord(enWord, targetModule);
     const parsedCtx = parseContextString(rawCtx);
 
     bodyEl.innerHTML = `
@@ -2748,7 +2758,7 @@ function exportUnitToExcel(moduleName) {
     ];
 
     pairs.forEach(([en, ua]) => {
-        const rawCtx = getContextForWord(en);
+        const rawCtx = getContextForWord(en, moduleName);
         const parsedCtx = parseContextString(rawCtx);
         const assoc = getAssociationForWord(en) || '';
         exportRows.push([
@@ -2836,7 +2846,7 @@ function openEditScreen(name) {
 
     modulePairs.forEach(([en, ua]) => {
         wordsText += `${en} - ${ua}\n`;
-        const rawCtx = getContextForWord(en);
+        const rawCtx = getContextForWord(en, name);
         const parsedCtx = parseContextString(rawCtx);
         excelParsedData.push({
             word: en,
@@ -2871,7 +2881,7 @@ function hasModuleContext(moduleId) {
     if (!moduleId || !ALL_DATA[moduleId]) return false;
     const pairs = Object.entries(ALL_DATA[moduleId]);
     return pairs.some(([en]) => {
-        const rawCtx = getContextForWord(en);
+        const rawCtx = getContextForWord(en, moduleId);
         return Boolean(rawCtx && rawCtx.trim());
     });
 }
@@ -2881,7 +2891,7 @@ function countUnitContextWords(name) {
     const pairs = Object.entries(ALL_DATA[name]);
     let count = 0;
     pairs.forEach(([en]) => {
-        const rawCtx = getContextForWord(en);
+        const rawCtx = getContextForWord(en, name);
         if (rawCtx && getMaskedContext(en, rawCtx)) count++;
     });
     return count;
@@ -3002,7 +3012,7 @@ function renderUnitWordsTable(moduleName, query = '') {
     // 1. Спочатку фільтруємо весь масив карток модуля
     const filteredPairs = allPairs.filter(([en, ua]) => {
         if (!cleanQuery) return true;
-        const rawCtx = getContextForWord(en) || '';
+        const rawCtx = getContextForWord(en, moduleName) || '';
         const assoc = getAssociationForWord(en) || '';
         return (
             en.toLowerCase().includes(cleanQuery) ||
@@ -3047,12 +3057,12 @@ function renderUnitWordsTable(moduleName, query = '') {
             statusBadge = '<span class="unit-status-chip status-in-progress">🔄 В процесі</span>';
         }
 
-        const ctxRaw = getContextForWord(en);
+        const ctxRaw = getContextForWord(en, moduleName);
         let ctxHtml = '';
         if (ctxRaw) {
-            const match = ctxRaw.match(/^(.+?)\s*(\([^)]+\))\s*$/);
-            if (match) {
-                ctxHtml = `${escapeHtml(match[1])} <em>${escapeHtml(match[2])}</em>`;
+            const parsed = parseContextString(ctxRaw);
+            if (parsed && parsed.uaTranslation) {
+                ctxHtml = `${escapeHtml(parsed.enSentence)} <em>(${escapeHtml(parsed.uaTranslation)})</em>`;
             } else {
                 ctxHtml = escapeHtml(ctxRaw);
             }
@@ -3508,7 +3518,7 @@ function revealFullContextTranslation(currentObj) {
     if (subEl) {
         let fullTrans = subEl.getAttribute('data-full-translation');
         if (!fullTrans && currentObj.en) {
-            const rawCtx = getContextForWord(currentObj.en);
+            const rawCtx = getContextForWord(currentObj.en, selectedModule);
             const parsed = parseContextString(rawCtx);
             if (parsed && parsed.uaTranslation) {
                 fullTrans = parsed.uaTranslation;
@@ -3631,7 +3641,7 @@ function generateSmartMixSession() {
         const en = pair[0];
         const ua = pair[1];
         const level = getWordMasteryLevel(en, selectedModule);
-        const rawCtx = getContextForWord(en);
+        const rawCtx = getContextForWord(en, selectedModule);
         const hasContext = Boolean(rawCtx && getMaskedContext(en, rawCtx));
         const assoc = getAssociationForWord(en);
 
@@ -3705,7 +3715,7 @@ function generateQuiz() {
 
     if (configMaterial === 'context' || configMode.startsWith('context-')) {
         const contextPairs = originalPairs.filter(pair => {
-            const raw = getContextForWord(pair[0]);
+            const raw = getContextForWord(pair[0], selectedModule);
             return Boolean(raw && getMaskedContext(pair[0], raw));
         });
         const minRequired = configMode === 'context-match' ? 4 : 1;
@@ -3791,18 +3801,37 @@ function toggleTranslationHint(btn) {
     }
 }
 
-function getContextForWord(enWord) {
+function getContextForWord(enWord, moduleName = null) {
     if (!enWord) return '';
     const lower = enWord.toLowerCase();
+
+    // 1. Пріоритет: юніт-специфічний контекст (якщо вказано назву модуля)
+    if (moduleName) {
+        const modKey = `${moduleName}:::${enWord}`;
+        const modKeyLower = `${moduleName}:::${lower}`;
+        if (typeof CUSTOM_CONTEXT_DATA !== 'undefined' && CUSTOM_CONTEXT_DATA) {
+            if (CUSTOM_CONTEXT_DATA[modKey]) return CUSTOM_CONTEXT_DATA[modKey];
+            if (CUSTOM_CONTEXT_DATA[modKeyLower]) return CUSTOM_CONTEXT_DATA[modKeyLower];
+        }
+        if (typeof CONTEXT_DATA !== 'undefined' && CONTEXT_DATA) {
+            if (CONTEXT_DATA[modKey]) return CONTEXT_DATA[modKey];
+            if (CONTEXT_DATA[modKeyLower]) return CONTEXT_DATA[modKeyLower];
+        }
+    }
+
+    // 2. Користувацький глобальний контекст
     if (typeof CUSTOM_CONTEXT_DATA !== 'undefined' && CUSTOM_CONTEXT_DATA) {
         if (CUSTOM_CONTEXT_DATA[enWord]) return CUSTOM_CONTEXT_DATA[enWord];
         if (CUSTOM_CONTEXT_DATA[lower]) return CUSTOM_CONTEXT_DATA[lower];
     }
+
+    // 3. Базовий глобальний контекст
     if (typeof CONTEXT_DATA !== 'undefined' && CONTEXT_DATA) {
         if (CONTEXT_DATA[enWord]) return CONTEXT_DATA[enWord];
         if (CONTEXT_DATA[lower]) return CONTEXT_DATA[lower];
         const keys = Object.keys(CONTEXT_DATA);
         for (let k of keys) {
+            if (k.includes(':::')) continue;
             if (k.toLowerCase() === lower || k.toLowerCase().includes(lower)) {
                 return CONTEXT_DATA[k];
             }
@@ -3813,7 +3842,8 @@ function getContextForWord(enWord) {
 
 function parseContextString(rawCtx) {
     if (!rawCtx) return null;
-    const match = rawCtx.match(/^(.*?)(?:\s*\((.*?)\))?$/);
+    // Відокремлюємо переклад за останнім блоком круглих дужок, щоб не ламати речення з абревіатурами типу (GP)
+    const match = rawCtx.match(/^(.*?)(?:\s*\(([^()]+)\))\s*$/);
     if (!match) return { enSentence: rawCtx.trim(), uaTranslation: '' };
     return {
         enSentence: (match[1] || rawCtx).trim(),
@@ -4064,10 +4094,10 @@ function findWordExamples(word) {
     const scanContextSource = (sourceObj) => {
         if (!sourceObj || typeof sourceObj !== 'object') return;
         for (const [key, ctxVal] of Object.entries(sourceObj)) {
-            if (!ctxVal || seenKeys.has(key)) continue;
-            const parenMatch = String(ctxVal).match(/^(.*?)\s*\((.*?)\)\s*$/);
-            const enText = parenMatch ? parenMatch[1].trim() : String(ctxVal).trim();
-            const uaText = parenMatch ? parenMatch[2].trim() : '';
+            if (!ctxVal || seenKeys.has(key) || key.includes(':::')) continue;
+            const parsed = parseContextString(String(ctxVal));
+            const enText = parsed ? parsed.enSentence : String(ctxVal).trim();
+            const uaText = parsed ? parsed.uaTranslation : '';
 
             if (wordRegex.test(enText) || wordRegex.test(key)) {
                 seenKeys.add(key);
@@ -4740,7 +4770,7 @@ function generateChoices(currentObj) {
 
         for (let wItem of otherWords) {
             if (distractorObjs.length >= 3) break;
-            const ctx = getContextForWord(wItem.en);
+            const ctx = getContextForWord(wItem.en, selectedModule);
             if (!ctx) continue;
             const obj = getMaskedContext(wItem.en, ctx);
             if (obj && !distractorObjs.some(d => d.word.toLowerCase() === obj.word.toLowerCase())) {
@@ -4750,7 +4780,7 @@ function generateChoices(currentObj) {
 
         if (distractorObjs.length < 3 && typeof CONTEXT_DATA !== 'undefined') {
             const allCtxKeys = Object.keys(CONTEXT_DATA)
-                .filter(k => k.toLowerCase() !== currentObj.en.toLowerCase())
+                .filter(k => !k.includes(':::') && k.toLowerCase() !== currentObj.en.toLowerCase())
                 .sort(() => Math.random() - 0.5);
             for (let k of allCtxKeys) {
                 if (distractorObjs.length >= 3) break;
@@ -4877,6 +4907,7 @@ function selectContextMatchChoice(clickedBtn, selectedOpt, allOptions) {
             msgEl.innerText = '❌ Схибив';
         }
         recordLastMistake({
+            module: selectedModule,
             question: currentObj.question,
             answer: currentObj.answer,
             userAnswer: selectedOpt.enFull || selectedOpt.enMasked || 'Невірний вибір',
@@ -4987,6 +5018,7 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
         const enWord = currentObj.en || (activeTarget === 'en' ? currentObj.question : currentObj.answer);
         const uaWord = currentObj.ua || (activeTarget === 'en' ? currentObj.answer : currentObj.question);
         recordLastMistake({
+            module: selectedModule,
             question: currentObj.question,
             answer: correctAnswer,
             userAnswer: selectedAnswer,
@@ -5033,6 +5065,7 @@ function handleQuizSubmit() {
                 const enWord = currentObj.en || (activeTarget === 'en' ? currentObj.question : currentObj.answer);
                 const uaWord = currentObj.ua || (activeTarget === 'en' ? currentObj.answer : currentObj.question);
                 recordLastMistake({
+                    module: selectedModule,
                     question: currentObj.question,
                     answer: currentObj.answer,
                     userAnswer: userAns || 'Порожня відповідь',

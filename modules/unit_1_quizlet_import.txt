@@ -212,7 +212,7 @@ depressed	пригнічений
 disappointed	розчарований
 embarrassed	збентежений, зніяковілий
 excited	схвильований
-fancy	гарний, модний
+fancy	модний, вишуканий; дорогий, фешенебельний
 frightened	зляканий
 scared	переляканий
 terrified	дуже переляканий

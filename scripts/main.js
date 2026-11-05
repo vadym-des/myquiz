@@ -1,5 +1,165 @@
-const APP_VERSION = "v7.0.8";
+const APP_VERSION = "v7.4.0";
 const VERSION_HISTORY = [
+    {
+        version: "v7.4.0",
+        date: "2026-11-05",
+        changes: [
+            "✨ Нові фічі та покращення: Додано повноцінний експорт будь-якого юніта у формат Excel (.xlsx) із підтримкою слів, перекладу, контекстних речень та мнемонічних асоціацій",
+            "✨ Нові фічі та покращення: Впроваджено кнопки швидкого завантаження в Excel безпосередньо з карток модулів у головному меню, з панелі керування словником юніта та з редактора модуля",
+            "✨ Нові фічі та покращення: Реалізовано інтелектуальний автопідбір ширини колонок у файлі .xlsx, захист від недозволених символів у назві файлу та резервний fallback у CSV"
+        ]
+    },
+    {
+        version: "v7.3.1",
+        date: "2026-11-05",
+        changes: [
+            "🐛 Виправлені баги: Усунено конфлікт шорткатів Space та Enter — клавішу Space повністю закріплено виключно за озвученням (прослуховування слова картки або Space + 1..4 для вимови варіантів), а перехід до наступного тесту тепер здійснюється виключно за клавішею Enter",
+            "✨ Нові фічі та покращення: Дозволено повторне прослуховування варіантів відповідей через Space + 1..4 після вибору відповіді для ретельного аналізу помилок"
+        ]
+    },
+    {
+        version: "v7.3.0",
+        date: "2026-11-05",
+        changes: [
+            "✨ Нові фічі та покращення: Впроваджено автоматичну 2-сторонню хмарну синхронізацію (Cloud Auto-Sync) з Google Диском через персональне посилання Google Apps Script без потреби у власному сервері",
+            "✨ Нові фічі та покращення: Автоматичне підтягування актуальних даних при відкритті з будь-якого пристрою (комп'ютер, телефон, планшет) та фонове збереження прогресу після кожного тесту",
+            "✨ Нові фічі та покращення: Інтерактивна секція налаштувань у вікні бекапу з кнопками ручного Push/Pull, статусом з'єднання та готовим шаблоном Google Apps Script з копіюванням в 1 клік",
+            "🐛 Виправлені баги: Захист від перезапису та втрати даних: автоматичний локальний бекап перед оновленням і синхронізація тільки новіших версій на основі міток часу"
+        ]
+    },
+    {
+        version: "v7.2.4",
+        date: "2026-11-05",
+        changes: [
+            "✨ Нові фічі та покращення: Додано швидку озвучку варіантів відповідей через комбінацію клавіш Space + 1, 2, 3, 4 у режимах вибору без необхідності клікати мишкою",
+            "✨ Нові фічі та покращення: Впроваджено плавний візуальний відгук озвучення (.speaking-preview) з м'яким Catppuccin-акцентом та оновлено підказки гарячих клавіш",
+            "🐛 Виправлені баги: Запобігли звуковим колізіям та помилковому відправленню відповіді: додано мікробуфер для клавіші Space у режимах вибору для чистої роботи хоткеїв"
+        ]
+    },
+    {
+        version: "v7.2.3",
+        date: "2026-11-01",
+        changes: [
+            "✨ Нові фічі та покращення: Масштабування віджета швидкого перекладу (Reverso-Scale Tooltip) — збільшено розмір шрифтів на 2 пункти, розширено габарити картки (max-width: 440px) та збільшено клікабельну зону чіпів для комфортного читання",
+            "✨ Нові фічі та покращення: Розширено пул відображення варіантів перекладу до 7–9 якісних синонімів, додано пресет для складних слів (наприклад, distinguished), адаптивне позиціонування із захистом від виходу за правий край екрана та динамічне вирівнювання стрілки"
+        ]
+    },
+    {
+        version: "v7.2.2",
+        date: "2026-11-01",
+        changes: [
+            "🐛 Виправлені баги: Виправлено логіку режиму «Рівень 3: Правопис» (Anti-Cognitive Conflict) — маска першої літери виводиться безпосередньо всередині речення, а при граматичних розбіжностях (наприклад, had an argument замість have an argument) картка чисто перемикається на класичний правопис інфінітива за українським перекладом без спойлера",
+            "✨ Нові фічі та покращення: Повне заспокоєння гейміфікації Combo (Calm Combo) — прибрано їдкий градієнт та збільшення, встановлено темний мінімалістичний стиль Catppuccin (background: rgba(30, 30, 46, 0.85), border: 1px solid #45475a, 11px)"
+        ]
+    },
+    {
+        version: "v7.2.1",
+        date: "2026-11-01",
+        changes: [
+            "🐛 Виправлені баги: Очищено пунктуацію та розділові знаки у чіпах перекладу (cleanTranslationChip), додано захист від омофонів/омонімів (CORE_HOMOPHONE_OVERRIDES) для запобігання підтягуванню «Погоди» замість «чи» для whether",
+            "✨ Нові фічі та покращення: Впроваджено синхронне акцентне підсвічування відповідного слова в українському перекладі речення-прикладу разом із англійським оригіналом",
+            "✨ Нові фічі та покращення: Покращено сітку та центрування чіпів перекладу (gap: 6px, заборона перенесення рядків усередині чіпа)"
+        ]
+    },
+    {
+        version: "v7.2.0",
+        date: "2026-11-01",
+        changes: [
+            "✨ Нові фічі та покращення: Розширено швидкий перекладач виділеного тексту до багатозначного контекстного словника (Reverso-style Smart Tooltip) з відображенням чіпів синонімів, прямим посиланням на Reverso Context та реченнями-прикладами",
+            "✨ Нові фічі та покращення: Додано автоматичний фліп тултіпа вниз при нестачі місця зверху та інтелектуальне підсвічування цільового слова у знайдених прикладах"
+        ]
+    },
+    {
+        version: "v7.1.9",
+        date: "2026-11-01",
+        changes: [
+            "✨ Нові фічі та покращення: Впроваджено універсальний глобальний перекладач виділеного тексту (Universal Selection Translator) для будь-якого тексту на сторінці",
+            "🐛 Виправлені баги: Повністю усунено витік нерелевантних перекладів та порожні результати при виділенні допоміжних слів чи фраз (need, be, There is no need)"
+        ]
+    },
+    {
+        version: "v7.1.8",
+        date: "2026-11-01",
+        changes: [
+            "🐛 Виправлені баги: Виправлено алгоритм перекладу у тултіпі виділення тексту — ліквідовано підстановку чужих слів (наприклад, be: номер телефону), додано словник базових дієслів (COMMON_CORE_WORDS) та асинхронний онлайн-перекладач для рідкісних слів і виразів"
+        ]
+    },
+    {
+        version: "v7.1.7",
+        date: "2026-11-01",
+        changes: [
+            "🐛 Виправлені баги: Виправлено часткове маскування словосполучень у перекладі контексту — багатослівні колокації маскуються як єдина група слів [ ... ], а при неповному збігу переклад делікатно блюриться без спойлерних хвостів"
+        ]
+    },
+    {
+        version: "v7.1.6",
+        date: "2026-11-01",
+        changes: [
+            "🐛 Виправлені баги: Відновлено повний український переклад речення після надання відповіді в контекстних режимах («Слот» / «Вписати») без спойлерних масок [ ... ] та блюру"
+        ]
+    },
+    {
+        version: "v7.1.5",
+        date: "2026-11-01",
+        changes: [
+            "✨ Нові фічі та покращення: Впроваджено якісний довідник перевірених мнемонічних асоціацій (DEFAULT_MNEMONICS) для популярних слів із яскравими асоціативними зв'язками",
+            "✨ Нові фічі та покращення: Оновлено генератор шаблонів мнемоніки при відсутності пресетів — прибрано сухі та обрізані фрази, додано структуровані якорні підказки"
+        ]
+    },
+    {
+        version: "v7.1.4",
+        date: "2026-11-01",
+        changes: [
+            "✨ Нові фічі та покращення: Додано міні-поп-ап швидкого перекладу та озвучки виділеного тексту в картці запитання (Selection Quick Tooltip)",
+            "✨ Нові фічі та покращення: Редизайн та заспокоєння плашки Combo — зменшено габарити, затемнено стиль у палітрі теми та усунено різкі підстрибування",
+            "🐛 Виправлені баги: Усунено блокування перезавантаження сторінки (Cmd+Shift+R / Ctrl+Shift+R / Cmd+R) гарячою клавішею озвучення — додано ігнорування системних клавіш-модифікаторів"
+        ]
+    },
+    {
+        version: "v7.1.3",
+        date: "2026-11-01",
+        changes: [
+            "Виправлені баги: Виправлено некоректний винос маски [ h____ ] під речення в режимі «Рівень 3: Правопис» (Smart Mix)",
+            "Виправлені баги: Забезпечено вбудовану заміну слова всередині речення або автоматичний перехід у режим перекладу слова (write) при відсутності точного збігу форми дієслова/виразу",
+            "Нові фічі та покращення: Додано підказку першої літери [ X... ] для карток правопису слів"
+        ]
+    },
+    {
+        version: "v7.1.2",
+        date: "2026-11-01",
+        changes: [
+            "Нові фічі та покращення: Додано анти-спойлер для перекладу контекстних речень з автоматичним маскуванням слова [ ... ] та блюром при відсутності збігу",
+            "Нові фічі та покращення: Рефакторинг хедера тесту: прогрес і рівень Smart Mix винесені на окремі рівні, а комбо-лічильник перенесено у плаваючий віджет внизу праворуч",
+            "Нові фічі та покращення: Додано незалежне прослуховування варіантів відповідей по кліку на текст без зарахування вибору"
+        ]
+    },
+    {
+        version: "v7.1.1",
+        date: "2026-11-01",
+        changes: [
+            "Нові фічі та покращення: Додано готові шаблони та підказки мнемоніки (фонетичні, візуальні, рими) у вигляді інтерактивних чіпів при розборі помилок",
+            "Нові фічі та покращення: Стандартизовано м'яку нейромережеву озвучку Microsoft Edge Natural / Online (rate: 0.95, pitch: 1.0) з автопідпискою на onvoiceschanged",
+            "Виправлені баги: Заблоковано помилкову спробу озвучення або спойлеру відповіді при показі українського слова-запитання",
+            "Виправлені баги: Усунено надлишкове дублювання тексту правильної відповіді під карткою при хибному виборі",
+            "Виправлені баги: Збільшено розмір шрифту тексту речення-прикладу в контексті на 2 пункти для покращення читабельності"
+        ]
+    },
+    {
+        version: "v7.1.0",
+        date: "2026-11-01",
+        changes: [
+            "Виправлені баги: Узгоджено словниковий переклад слова fancy з контекстним реченням («модний, вишуканий; дорогий, фешенебельний»)"
+        ]
+    },
+    {
+        version: "v7.0.9",
+        date: "2026-11-01",
+        changes: [
+            "Нові фічі та покращення: Впроваджено інтелектуальний режим «🔥 Smart Mix» із динамічним перемиканням форматів карток на базі інтервального рейтингу слова",
+            "Нові фічі та покращення: Інтегровано Мнемонічний сейф (Mnemonic Vault): можливість зберігати та редагувати персональні асоціації для кожного слова в редакторі модуля та під час розбору помилок",
+            "Виправлені баги: Оптимізовано логіку сесій тренажера під час відсутності контекстних полів у старих юнітах"
+        ]
+    },
     {
         version: "v7.0.8",
         date: "2026-10-16",
@@ -450,17 +610,58 @@ function escapeHtml(str) {
 if (typeof DEFAULT_MODULES === 'undefined') window.DEFAULT_MODULES = {};
 
 let SAVED_USER_DATA = safeJsonParse('my_quiz_modules', {});
+
+// Автоматична синхронізація оновленого перекладу для слова "fancy" у збережених даних користувача
+if (SAVED_USER_DATA && SAVED_USER_DATA["Unit 1: People and communities"]) {
+    const unit1 = SAVED_USER_DATA["Unit 1: People and communities"];
+    if (unit1["fancy"] === "гарний, модний") {
+        unit1["fancy"] = "модний, вишуканий; дорогий, фешенебельний";
+        localStorage.setItem('my_quiz_modules', JSON.stringify(SAVED_USER_DATA));
+    }
+}
+
 let ALL_DATA = Object.assign({}, DEFAULT_MODULES, SAVED_USER_DATA);
+if (ALL_DATA["Unit 1: People and communities"] && ALL_DATA["Unit 1: People and communities"]["fancy"] === "гарний, модний") {
+    ALL_DATA["Unit 1: People and communities"]["fancy"] = "модний, вишуканий; дорогий, фешенебельний";
+}
 
 let MEMORY_STATS = safeJsonParse('my_quiz_mem_stats', {});
 let STREAK_DATA = safeJsonParse('my_quiz_streak', { count: 0, lastDate: "" });
 let ACTIVITY_DATA = safeJsonParse('myquiz_activity', {});
 let PINNED_MODULES = safeJsonParse('my_quiz_pinned_modules', []);
 let CUSTOM_CONTEXT_DATA = safeJsonParse('my_quiz_custom_context', {});
+let CUSTOM_ASSOCIATION_DATA = safeJsonParse('my_quiz_associations', {});
 let currentModuleFilter = 'all';
 let currentEditTab = 'text';
 let excelParsedData = [];
 let calendarViewDate = new Date();
+
+// Мнемонічний сейф: читання та збереження персональних асоціацій для слів
+function getAssociationForWord(enWord) {
+    if (!enWord) return '';
+    const clean = String(enWord).trim();
+    const lower = clean.toLowerCase();
+    if (typeof CUSTOM_ASSOCIATION_DATA !== 'undefined' && CUSTOM_ASSOCIATION_DATA) {
+        if (CUSTOM_ASSOCIATION_DATA[clean]) return CUSTOM_ASSOCIATION_DATA[clean];
+        if (CUSTOM_ASSOCIATION_DATA[lower]) return CUSTOM_ASSOCIATION_DATA[lower];
+    }
+    return '';
+}
+
+function saveAssociationForWord(enWord, associationText) {
+    if (!enWord) return;
+    const cleanWord = String(enWord).trim();
+    const lowerWord = cleanWord.toLowerCase();
+    const text = String(associationText || '').trim();
+    if (text) {
+        CUSTOM_ASSOCIATION_DATA[cleanWord] = text;
+        CUSTOM_ASSOCIATION_DATA[lowerWord] = text;
+    } else {
+        delete CUSTOM_ASSOCIATION_DATA[cleanWord];
+        delete CUSTOM_ASSOCIATION_DATA[lowerWord];
+    }
+    localStorage.setItem('my_quiz_associations', JSON.stringify(CUSTOM_ASSOCIATION_DATA));
+}
 
 function getLocalDateKey(dateObj = new Date()) {
     const y = dateObj.getFullYear();
@@ -674,6 +875,11 @@ let currentWordDuration = 0;
 let sessionLogs = [];
 let timerTimeout = null;
 let currentCombo = 0;
+
+let isSpacePressed = false;
+let lastSpaceDownTime = 0;
+let spaceSpeechTimer = null;
+let spaceComboTriggered = false;
 
 let lastMistakeData = null;
 let lastMistakeIndex = null;
@@ -921,6 +1127,33 @@ function renderLastMistakeDrawerContent() {
             </div>
         </div>
 
+        ${(() => {
+            const assoc = getAssociationForWord(enWord);
+            if (assoc) {
+                return `
+                    <div class="mistake-mnemonic-card" id="drawer-mnemonic-card">
+                        <div class="mistake-mnemonic-header">
+                            <span class="mnemonic-tag">💡 Твоя мнемонічна асоціація:</span>
+                            <button type="button" class="btn-edit-mnemonic-inline" onclick="promptDrawerMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')" title="Редагувати асоціацію">✏️</button>
+                        </div>
+                        <div class="mistake-mnemonic-text" id="drawer-mnemonic-text"><strong>${escapeHtml(assoc)}</strong></div>
+                        <div id="drawer-mnemonic-edit-wrap" style="display: none;"></div>
+                    </div>
+                `;
+            } else {
+                return `
+                    <div class="mistake-mnemonic-card empty" id="drawer-mnemonic-card">
+                        <div id="drawer-mnemonic-btn-wrap">
+                            <button type="button" class="btn-add-mnemonic-drawer" onclick="promptDrawerMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')">
+                                💡 + Додати асоціацію-якорь
+                            </button>
+                        </div>
+                        <div id="drawer-mnemonic-edit-wrap" style="display: none;"></div>
+                    </div>
+                `;
+            }
+        })()}
+
         ${parsedCtx && parsedCtx.enSentence ? `
             <div class="mistake-context-card">
                 <div class="mistake-ctx-header">
@@ -1107,12 +1340,20 @@ function handleMaterialChange() {
     const materialVal = document.querySelector('input[name="quiz-material"]:checked')?.value || 'words';
     const wordsContainer = document.getElementById('mode-control-words');
     const contextContainer = document.getElementById('mode-control-context');
+    const formatContainer = document.getElementById('format-group-container');
     const langGroup = document.getElementById('level-lang-group');
+    const smartHint = document.getElementById('smart-mix-hint');
 
-    if (materialVal === 'words') {
+    if (materialVal === 'smart-mix') {
+        if (formatContainer) formatContainer.style.display = 'none';
+        if (langGroup) langGroup.style.display = 'none';
+        if (smartHint) smartHint.style.display = 'block';
+    } else if (materialVal === 'words') {
+        if (formatContainer) formatContainer.style.display = 'block';
         if (wordsContainer) wordsContainer.style.display = 'grid';
         if (contextContainer) contextContainer.style.display = 'none';
         if (langGroup) langGroup.style.display = 'block';
+        if (smartHint) smartHint.style.display = 'none';
 
         const currentMode = document.querySelector('input[name="quiz-mode"]:checked')?.value;
         if (!currentMode || !['choice', 'write'].includes(currentMode)) {
@@ -1120,9 +1361,11 @@ function handleMaterialChange() {
             if (choiceBtn) choiceBtn.checked = true;
         }
     } else {
+        if (formatContainer) formatContainer.style.display = 'block';
         if (wordsContainer) wordsContainer.style.display = 'none';
         if (contextContainer) contextContainer.style.display = 'grid';
         if (langGroup) langGroup.style.display = 'none';
+        if (smartHint) smartHint.style.display = 'none';
 
         const currentMode = document.querySelector('input[name="quiz-mode"]:checked')?.value;
         if (!currentMode || !['context-slot', 'context-write'].includes(currentMode)) {
@@ -1132,11 +1375,381 @@ function handleMaterialChange() {
     }
 }
 
+// ==========================================
+// Хмарна двостороння авто-синхронізація (Google Диск Webhook)
+// ==========================================
+const GOOGLE_APPS_SCRIPT_TEMPLATE = `/**
+ * ADHD Quiz Platform — Google Drive Cloud Sync Webhook
+ * Зберігає та синхронізує my_quiz_cloud_sync.json на вашому Google Диску
+ */
+const SYNC_FILENAME = "my_quiz_cloud_sync.json";
+
+function getOrCreateSyncFile() {
+  const files = DriveApp.getFilesByName(SYNC_FILENAME);
+  if (files.hasNext()) {
+    return files.next();
+  }
+  return DriveApp.createFile(SYNC_FILENAME, JSON.stringify({
+    version: "7.3.0",
+    date: new Date().toISOString(),
+    message: "Init empty sync file"
+  }, null, 2), MimeType.PLAIN_TEXT);
+}
+
+function doGet(e) {
+  try {
+    const file = getOrCreateSyncFile();
+    const content = file.getBlob().getDataAsString();
+    return ContentService.createTextOutput(content)
+      .setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}
+
+function doPost(e) {
+  try {
+    const postContent = e && e.postData && e.postData.contents;
+    if (!postContent) {
+      return ContentService.createTextOutput(JSON.stringify({ error: "No post data" }))
+        .setMimeType(ContentService.MimeType.JSON);
+    }
+    const parsed = JSON.parse(postContent);
+    const file = getOrCreateSyncFile();
+    file.setContent(JSON.stringify(parsed, null, 2));
+    
+    return ContentService.createTextOutput(JSON.stringify({
+      status: "success",
+      date: parsed.date || new Date().toISOString()
+    })).setMimeType(ContentService.MimeType.JSON);
+  } catch (err) {
+    return ContentService.createTextOutput(JSON.stringify({ error: err.toString() }))
+      .setMimeType(ContentService.MimeType.JSON);
+  }
+}`;
+
+let isCloudSyncInProgress = false;
+let autoSyncDebounceTimer = null;
+
+function getCloudSyncUrl() {
+    return localStorage.getItem('my_quiz_cloud_sync_url') || '';
+}
+
+function setCloudSyncUrl(url) {
+    if (url) {
+        localStorage.setItem('my_quiz_cloud_sync_url', url.trim());
+    } else {
+        localStorage.removeItem('my_quiz_cloud_sync_url');
+    }
+}
+
+function isCloudAutoSyncEnabled() {
+    const val = localStorage.getItem('my_quiz_cloud_auto_sync');
+    return val === null ? true : val === 'true';
+}
+
+function setCloudAutoSync(enabled) {
+    localStorage.setItem('my_quiz_cloud_auto_sync', enabled ? 'true' : 'false');
+}
+
+function getFullBackupPayload() {
+    return {
+        version: APP_VERSION,
+        date: new Date().toISOString(),
+        modules: SAVED_USER_DATA,
+        stats: MEMORY_STATS,
+        streak: STREAK_DATA,
+        activity: ACTIVITY_DATA,
+        pinned: PINNED_MODULES,
+        customContext: CUSTOM_CONTEXT_DATA,
+        customAssociations: CUSTOM_ASSOCIATION_DATA,
+        settings: safeJsonParse('my_quiz_settings', {})
+    };
+}
+
+function applyCloudBackupPayload(data) {
+    if (!data || typeof data !== 'object') return false;
+
+    // Створюємо захисний локальний бекап перед застосуванням змін
+    try {
+        const localSnapshot = getFullBackupPayload();
+        localStorage.setItem('my_quiz_backup_pre_cloud', JSON.stringify(localSnapshot));
+    } catch (e) {
+        console.warn('Не вдалося створити локальний бекап перед синхронізацією:', e);
+    }
+
+    if (data.modules && typeof data.modules === 'object') {
+        SAVED_USER_DATA = data.modules;
+        ALL_DATA = Object.assign({}, DEFAULT_MODULES, SAVED_USER_DATA);
+        localStorage.setItem('my_quiz_modules', JSON.stringify(SAVED_USER_DATA));
+    }
+    if (data.stats && typeof data.stats === 'object') {
+        MEMORY_STATS = data.stats;
+        localStorage.setItem('my_quiz_mem_stats', JSON.stringify(MEMORY_STATS));
+    }
+    if (data.streak && typeof data.streak === 'object') {
+        STREAK_DATA = data.streak;
+        localStorage.setItem('my_quiz_streak', JSON.stringify(STREAK_DATA));
+    }
+    if (data.activity && typeof data.activity === 'object') {
+        ACTIVITY_DATA = data.activity;
+        localStorage.setItem('myquiz_activity', JSON.stringify(ACTIVITY_DATA));
+    }
+    if (data.pinned && Array.isArray(data.pinned)) {
+        PINNED_MODULES = data.pinned;
+        localStorage.setItem('my_quiz_pinned_modules', JSON.stringify(PINNED_MODULES));
+    }
+    if (data.customContext && typeof data.customContext === 'object') {
+        CUSTOM_CONTEXT_DATA = data.customContext;
+        localStorage.setItem('my_quiz_custom_context', JSON.stringify(CUSTOM_CONTEXT_DATA));
+    }
+    if (data.customAssociations && typeof data.customAssociations === 'object') {
+        CUSTOM_ASSOCIATION_DATA = data.customAssociations;
+        localStorage.setItem('my_quiz_associations', JSON.stringify(CUSTOM_ASSOCIATION_DATA));
+    }
+    if (data.settings && typeof data.settings === 'object') {
+        localStorage.setItem('my_quiz_settings', JSON.stringify(data.settings));
+        loadUserSettings();
+    }
+
+    if (data.date) {
+        localStorage.setItem('my_quiz_last_cloud_sync_date', data.date);
+    }
+    localStorage.setItem('my_quiz_last_local_edit', data.date || new Date().toISOString());
+
+    isMenuRendered = false;
+    if (typeof updateStreakAndGlobalStats === 'function') updateStreakAndGlobalStats();
+    if (typeof renderDailyStreakWidget === 'function') renderDailyStreakWidget();
+    return true;
+}
+
+function updateCloudSyncUIStatus(status, text) {
+    const pill = document.getElementById('cloud-sync-status-pill');
+    const badge = document.getElementById('cloud-sync-badge-footer');
+    const badgeText = document.getElementById('cloud-sync-text-footer');
+
+    if (pill) {
+        pill.className = `cloud-status-pill ${status}`;
+        pill.textContent = text;
+    }
+    if (badge && badgeText) {
+        badge.className = `cloud-sync-badge-footer ${status}`;
+        if (status === 'synced') {
+            badgeText.textContent = 'Хмара: ок';
+        } else if (status === 'syncing') {
+            badgeText.textContent = 'Хмара: ⏳';
+        } else if (status === 'error') {
+            badgeText.textContent = 'Хмара: помилка';
+        } else {
+            badgeText.textContent = 'Хмара: вимк';
+        }
+    }
+}
+
+function markLocalDataChanged() {
+    localStorage.setItem('my_quiz_last_local_edit', new Date().toISOString());
+    triggerAutoCloudSyncDebounced();
+}
+
+function triggerAutoCloudSyncDebounced() {
+    if (!getCloudSyncUrl() || !isCloudAutoSyncEnabled()) return;
+    if (autoSyncDebounceTimer) clearTimeout(autoSyncDebounceTimer);
+    autoSyncDebounceTimer = setTimeout(() => {
+        pushToCloudSync(false);
+    }, 1500);
+}
+
+async function pushToCloudSync(showToast = false) {
+    const syncUrl = getCloudSyncUrl();
+    if (!syncUrl) {
+        if (showToast) alert('Вкажіть посилання Web App URL у налаштуваннях синхронізації!');
+        return false;
+    }
+    if (isCloudSyncInProgress) return false;
+    isCloudSyncInProgress = true;
+    updateCloudSyncUIStatus('syncing', 'Вивантаження...');
+
+    try {
+        const payload = getFullBackupPayload();
+        await fetch(syncUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify(payload)
+        });
+
+        const nowIso = new Date().toISOString();
+        localStorage.setItem('my_quiz_last_cloud_sync_date', nowIso);
+        localStorage.setItem('my_quiz_last_local_edit', nowIso);
+
+        updateCloudSyncUIStatus('synced', '🟢 Хмара актуальна');
+        if (showToast) {
+            showToastNotice('Дані успішно збережено на Google Диск! ☁️', '✅');
+        }
+        return true;
+    } catch (err) {
+        console.warn('Помилка вивантаження в хмару:', err);
+        updateCloudSyncUIStatus('error', '⚠️ Помилка з\'єднання');
+        if (showToast) {
+            alert('Помилка зв\'язку з Google Диском. Перевірте посилання або підключення до мережі.');
+        }
+        return false;
+    } finally {
+        isCloudSyncInProgress = false;
+    }
+}
+
+async function pullFromCloudSync(force = false, showToast = false) {
+    const syncUrl = getCloudSyncUrl();
+    if (!syncUrl) {
+        if (showToast) alert('Вкажіть посилання Web App URL у налаштуваннях синхронізації!');
+        return false;
+    }
+    if (isCloudSyncInProgress) return false;
+    isCloudSyncInProgress = true;
+    updateCloudSyncUIStatus('syncing', 'Завантаження...');
+
+    try {
+        const resp = await fetch(syncUrl, { method: 'GET' });
+        const cloudData = await resp.json();
+
+        if (!cloudData || cloudData.error) {
+            throw new Error(cloudData?.error || 'Порожні дані');
+        }
+
+        // Якщо файл на хмарі щойно створено і він ще не має модулів
+        if (!cloudData.modules && !cloudData.stats) {
+            updateCloudSyncUIStatus('synced', '🟢 Хмара підключена');
+            if (Object.keys(SAVED_USER_DATA).length > 0) {
+                isCloudSyncInProgress = false;
+                await pushToCloudSync(false);
+            }
+            return true;
+        }
+
+        const cloudTime = new Date(cloudData.date || 0).getTime();
+        const localEditStr = localStorage.getItem('my_quiz_last_local_edit');
+        const localTime = new Date(localEditStr || 0).getTime();
+
+        // Якщо примусово або хмарні дані новіші більш ніж на 2 секунди
+        if (force || cloudTime > (localTime + 2000)) {
+            applyCloudBackupPayload(cloudData);
+            updateCloudSyncUIStatus('synced', '🟢 Оновлено з хмари');
+            if (showToast) {
+                showToastNotice('Дані успішно завантажено з Google Диску! 📥', '✅');
+            }
+            if (currentActiveScreen === 'menu-screen') {
+                renderMenu();
+            }
+            return true;
+        } else if (localTime > (cloudTime + 2000)) {
+            // Локальні дані новіші — автоматично пушимо їх у хмару
+            isCloudSyncInProgress = false;
+            await pushToCloudSync(false);
+            return true;
+        } else {
+            // Дані синхронізовані
+            updateCloudSyncUIStatus('synced', '🟢 Хмара актуальна');
+            if (showToast) {
+                showToastNotice('Дані вже в актуальному стані! ☁️', '👌');
+            }
+            return true;
+        }
+    } catch (err) {
+        console.warn('Помилка завантаження з хмари:', err);
+        updateCloudSyncUIStatus('error', '⚠️ Офлайн / помилка');
+        if (showToast) {
+            alert('Не вдалося отримати дані з Google Диску. Перевірте інтернет або доступ за посиланням.');
+        }
+        return false;
+    } finally {
+        isCloudSyncInProgress = false;
+    }
+}
+
+async function checkAndAutoSyncCloudOnStartup() {
+    const syncUrl = getCloudSyncUrl();
+    if (!syncUrl || !isCloudAutoSyncEnabled()) {
+        updateCloudSyncUIStatus('idle', 'Хмара: вимк');
+        return;
+    }
+    await pullFromCloudSync(false, false);
+}
+
+function saveCloudSyncConfig() {
+    const input = document.getElementById('cloud-sync-url-input');
+    if (!input) return;
+    const url = input.value.trim();
+    if (url && !url.startsWith('https://script.google.com/')) {
+        alert('Увага: посилання повинно починатися з https://script.google.com/macros/s/.../exec');
+    }
+    setCloudSyncUrl(url);
+    if (url) {
+        showToastNotice('Посилання збережено! Перевіряємо зв\'язок...', '☁️');
+        pullFromCloudSync(false, true);
+    } else {
+        updateCloudSyncUIStatus('idle', '⚪ Не налаштовано');
+        showToastNotice('Хмарну синхронізацію вимкнено', 'ℹ️');
+    }
+}
+
+function toggleCloudAutoSync(enabled) {
+    setCloudAutoSync(enabled);
+    if (enabled && getCloudSyncUrl()) {
+        triggerAutoCloudSyncDebounced();
+    }
+}
+
+function copyGoogleScriptTemplate() {
+    const text = GOOGLE_APPS_SCRIPT_TEMPLATE;
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            showToastNotice('Код Google Apps Script скопійовано! 📋', '✅');
+        }).catch(() => {
+            fallbackCopyText(text);
+        });
+    } else {
+        fallbackCopyText(text);
+    }
+}
+
+function fallbackCopyText(text) {
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try {
+        document.execCommand('copy');
+        showToastNotice('Код Google Apps Script скопійовано! 📋', '✅');
+    } catch (e) {
+        alert('Будь ласка, виділіть та скопіюйте текст скрипта з вікна нижче вручну.');
+    }
+    document.body.removeChild(ta);
+}
+
 function openDataManagementModal() {
     const modal = document.getElementById('data-management-modal');
     if (modal) {
         modal.classList.add('active');
         document.body.style.overflow = 'hidden';
+
+        const syncInput = document.getElementById('cloud-sync-url-input');
+        if (syncInput) syncInput.value = getCloudSyncUrl();
+
+        const autoToggle = document.getElementById('cloud-auto-sync-toggle');
+        if (autoToggle) autoToggle.checked = isCloudAutoSyncEnabled();
+
+        const codeEl = document.getElementById('google-script-template-code');
+        if (codeEl) codeEl.textContent = GOOGLE_APPS_SCRIPT_TEMPLATE;
+
+        const currentUrl = getCloudSyncUrl();
+        if (currentUrl) {
+            updateCloudSyncUIStatus('synced', '🟢 Підключено');
+        } else {
+            updateCloudSyncUIStatus('idle', '⚪ Не налаштовано');
+        }
     }
 }
 
@@ -1157,6 +1770,12 @@ function stopLiveTimer() {
         clearTimeout(timerTimeout);
         timerTimeout = null;
     }
+    if (spaceSpeechTimer) {
+        clearTimeout(spaceSpeechTimer);
+        spaceSpeechTimer = null;
+    }
+    isSpacePressed = false;
+    spaceComboTriggered = false;
 }
 
 // Універсальна функція перемикання екранних форм (SPA)
@@ -1252,17 +1871,7 @@ function handleBulkImport(input) {
 
 // Експорт резервної копії (Бэкап у форматі JSON)
 function exportBackupJSON() {
-    const backupData = {
-        version: "6.8.0",
-        date: new Date().toISOString(),
-        modules: SAVED_USER_DATA,
-        stats: MEMORY_STATS,
-        streak: STREAK_DATA,
-        activity: ACTIVITY_DATA,
-        pinned: PINNED_MODULES,
-        customContext: CUSTOM_CONTEXT_DATA,
-        settings: safeJsonParse('my_quiz_settings', {})
-    };
+    const backupData = getFullBackupPayload();
     const blob = new Blob([JSON.stringify(backupData, null, 2)], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
@@ -1305,10 +1914,15 @@ function importBackupJSON(input) {
                 CUSTOM_CONTEXT_DATA = data.customContext;
                 localStorage.setItem('my_quiz_custom_context', JSON.stringify(CUSTOM_CONTEXT_DATA));
             }
+            if (data.customAssociations) {
+                CUSTOM_ASSOCIATION_DATA = data.customAssociations;
+                localStorage.setItem('my_quiz_associations', JSON.stringify(CUSTOM_ASSOCIATION_DATA));
+            }
             if (data.settings) {
                 localStorage.setItem('my_quiz_settings', JSON.stringify(data.settings));
                 loadUserSettings();
             }
+            markLocalDataChanged();
             alert('✅ Бэкап успішно відновлено!');
             isMenuRendered = false;
             switchScreen('menu-screen');
@@ -1331,7 +1945,7 @@ async function clearAllData() {
 
     if (confirmed) {
         localStorage.clear();
-        SAVED_USER_DATA = {}; ALL_DATA = Object.assign({}, DEFAULT_MODULES); MEMORY_STATS = {}; STREAK_DATA = { count: 0, lastDate: "" }; ACTIVITY_DATA = {}; PINNED_MODULES = []; CUSTOM_CONTEXT_DATA = {};
+        SAVED_USER_DATA = {}; ALL_DATA = Object.assign({}, DEFAULT_MODULES); MEMORY_STATS = {}; STREAK_DATA = { count: 0, lastDate: "" }; ACTIVITY_DATA = {}; PINNED_MODULES = []; CUSTOM_CONTEXT_DATA = {}; CUSTOM_ASSOCIATION_DATA = {};
         isMenuRendered = false;
         loadUserSettings();
         renderMenu(); updateStreakAndGlobalStats();
@@ -1483,6 +2097,7 @@ function renderMenu() {
                     <div class="progress-track"><div class="progress-bar" style="width: ${Math.max(stats.progressPct, stats.learned > 0 ? 2 : 0)}%"></div></div>
                 </div>
                 <div class="actions-block">
+                    <button class="action-btn-small export-excel-btn" data-action="export-excel" title="Завантажити модуль в Excel (.xlsx)" aria-label="Завантажити модуль в Excel"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></button>
                     <button class="action-btn-small edit-btn" data-action="edit" title="Редагувати" aria-label="Редагувати"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg></button>
                     <button class="action-btn-small delete-btn" data-action="delete" title="Видалити" aria-label="Видалити"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></button>
                 </div>
@@ -1519,6 +2134,9 @@ document.getElementById('modules-container').addEventListener('click', function 
         togglePinModule(name);
     } else if (action === 'open' && name) {
         openSetup(name);
+    } else if (action === 'export-excel' && name) {
+        e.stopPropagation();
+        exportUnitToExcel(name);
     } else if (action === 'edit' && name) {
         e.stopPropagation();
         openEditScreen(name);
@@ -1785,7 +2403,8 @@ function switchEditTab(tabName) {
                         word: en,
                         translation: ua,
                         context: parsedCtx ? parsedCtx.enSentence : '',
-                        contextTranslation: parsedCtx ? parsedCtx.uaTranslation : ''
+                        contextTranslation: parsedCtx ? parsedCtx.uaTranslation : '',
+                        association: getAssociationForWord(en) || ''
                     });
                 }
             });
@@ -1858,7 +2477,8 @@ function processImportedRows(rawRows) {
             word: String(r[0] || '').trim(),
             translation: String(r[1] || '').trim(),
             context: String(r[2] || '').trim(),
-            contextTranslation: String(r[3] || '').trim()
+            contextTranslation: String(r[3] || '').trim(),
+            association: String(r[4] || '').trim()
         };
     }).filter(item => item.word && item.translation);
 
@@ -1919,6 +2539,7 @@ function renderExcelPreview(data) {
             <td contenteditable="true" data-field="translation" data-index="${idx}" title="Клікніть для редагування">${escapeHtml(item.translation)}</td>
             <td contenteditable="true" data-field="context" data-index="${idx}" style="color:var(--text);" title="Клікніть для редагування">${escapeHtml(item.context || '')}</td>
             <td contenteditable="true" data-field="contextTranslation" data-index="${idx}" style="color:var(--subtext);" title="Клікніть для редагування">${escapeHtml(item.contextTranslation || '')}</td>
+            <td contenteditable="true" data-field="association" data-index="${idx}" style="color:#fab387;" title="Клікніть для редагування">${escapeHtml(item.association || '')}</td>
         `;
         fragment.appendChild(tr);
     });
@@ -1933,7 +2554,8 @@ function addNewTableRow() {
         word: '',
         translation: '',
         context: '',
-        contextTranslation: ''
+        contextTranslation: '',
+        association: ''
     });
     renderExcelPreview(excelParsedData);
 
@@ -2054,6 +2676,155 @@ function openCreateScreen() {
     switchScreen('create-screen');
 }
 
+// ==================== ЕКСПОРТ ЮНІТІВ У ФОРМАТ EXCEL (.xlsx / .csv) ====================
+
+function downloadRowsAsCSV(rows, fileName) {
+    const csvContent = '\uFEFF' + rows.map(r => 
+        r.map(cell => {
+            const str = String(cell ?? '').replace(/"/g, '""');
+            return `"${str}"`;
+        }).join(',')
+    ).join('\r\n');
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = fileName.endsWith('.csv') ? fileName : `${fileName}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+    showToastNotice('Модуль збережено у форматі CSV (Excel-сумісний) 📊', '📥');
+}
+
+function downloadRowsAsExcel(rows, fileNameBase) {
+    const cleanFileName = (fileNameBase || 'unit')
+        .replace(/[/\\?%*:|"<>]/g, '_')
+        .trim();
+    const finalFileName = `${cleanFileName}.xlsx`;
+
+    if (typeof XLSX !== 'undefined') {
+        try {
+            const wb = XLSX.utils.book_new();
+            const ws = XLSX.utils.aoa_to_sheet(rows);
+
+            // Автопідбір ширини колонок для комфортного перегляду в Excel
+            const colWidths = rows[0].map((_, colIdx) => {
+                let maxLen = 12;
+                rows.forEach(row => {
+                    const cellVal = row[colIdx] ? String(row[colIdx]) : '';
+                    if (cellVal.length > maxLen) maxLen = Math.min(cellVal.length, 60);
+                });
+                return { wch: maxLen + 3 };
+            });
+            ws['!cols'] = colWidths;
+
+            XLSX.utils.book_append_sheet(wb, ws, 'Словник');
+            XLSX.writeFile(wb, finalFileName);
+            showToastNotice(`Модуль "${cleanFileName}" завантажено в Excel! 📊`, '📥');
+            return;
+        } catch (err) {
+            console.error('Помилка генерації XLSX:', err);
+        }
+    }
+
+    // Резервний fallback: завантаження як CSV з UTF-8 BOM для коректного відкриття в Excel
+    downloadRowsAsCSV(rows, `${cleanFileName}.csv`);
+}
+
+function exportUnitToExcel(moduleName) {
+    if (!moduleName || !ALL_DATA[moduleName]) {
+        alert('Модуль не знайдено або він порожній');
+        return;
+    }
+
+    const pairs = Object.entries(ALL_DATA[moduleName]);
+    if (pairs.length === 0) {
+        alert('У цьому модулі немає слів для завантаження в Excel');
+        return;
+    }
+
+    const exportRows = [
+        ['English (Слово)', 'Українська', 'Контекст (En)', 'Переклад контексту (Ua)', 'Асоціація']
+    ];
+
+    pairs.forEach(([en, ua]) => {
+        const rawCtx = getContextForWord(en);
+        const parsedCtx = parseContextString(rawCtx);
+        const assoc = getAssociationForWord(en) || '';
+        exportRows.push([
+            en,
+            ua,
+            parsedCtx ? parsedCtx.enSentence : '',
+            parsedCtx ? parsedCtx.uaTranslation : '',
+            assoc
+        ]);
+    });
+
+    downloadRowsAsExcel(exportRows, moduleName);
+}
+
+function exportCurrentUnitToExcel() {
+    if (!selectedModule) {
+        alert('Модуль не вибрано');
+        return;
+    }
+    exportUnitToExcel(selectedModule);
+}
+
+function exportModuleFromEditScreen() {
+    const moduleName = document.getElementById('new-module-name')?.value.trim() || 'Unit';
+    
+    let rowsData = [];
+    if (excelParsedData && excelParsedData.length > 0) {
+        rowsData = excelParsedData.filter(item => item && (item.word || item.translation));
+    } else {
+        const textVal = document.getElementById('new-module-words')?.value.trim() || '';
+        if (textVal) {
+            textVal.split('\n').forEach(line => {
+                let parts = line.split(' - ');
+                if (parts.length < 2) parts = line.split(' — ');
+                if (parts.length < 2) parts = line.split(' – ');
+                if (parts.length >= 2) {
+                    const en = parts[0].trim();
+                    const ua = parts[1].trim();
+                    if (en && ua) {
+                        const rawCtx = getContextForWord(en);
+                        const parsedCtx = parseContextString(rawCtx);
+                        rowsData.push({
+                            word: en,
+                            translation: ua,
+                            context: parsedCtx ? parsedCtx.enSentence : '',
+                            contextTranslation: parsedCtx ? parsedCtx.uaTranslation : '',
+                            association: getAssociationForWord(en) || ''
+                        });
+                    }
+                }
+            });
+        }
+    }
+
+    if (rowsData.length === 0) {
+        alert('⚠️ Немає слів для завантаження в Excel. Введіть або імпортуйте слова.');
+        return;
+    }
+
+    const exportRows = [
+        ['English (Слово)', 'Українська', 'Контекст (En)', 'Переклад контексту (Ua)', 'Асоціація']
+    ];
+
+    rowsData.forEach(item => {
+        exportRows.push([
+            item.word || '',
+            item.translation || '',
+            item.context || '',
+            item.contextTranslation || '',
+            item.association || ''
+        ]);
+    });
+
+    downloadRowsAsExcel(exportRows, moduleName);
+}
+
 function openEditScreen(name) {
     editingModuleOriginalName = name;
     document.getElementById('create-screen-title').innerText = '✏️ Редагування модуля';
@@ -2071,7 +2842,8 @@ function openEditScreen(name) {
             word: en,
             translation: ua,
             context: parsedCtx ? parsedCtx.enSentence : '',
-            contextTranslation: parsedCtx ? parsedCtx.uaTranslation : ''
+            contextTranslation: parsedCtx ? parsedCtx.uaTranslation : '',
+            association: getAssociationForWord(en) || ''
         });
     });
 
@@ -2231,10 +3003,12 @@ function renderUnitWordsTable(moduleName, query = '') {
     const filteredPairs = allPairs.filter(([en, ua]) => {
         if (!cleanQuery) return true;
         const rawCtx = getContextForWord(en) || '';
+        const assoc = getAssociationForWord(en) || '';
         return (
             en.toLowerCase().includes(cleanQuery) ||
             ua.toLowerCase().includes(cleanQuery) ||
-            rawCtx.toLowerCase().includes(cleanQuery)
+            rawCtx.toLowerCase().includes(cleanQuery) ||
+            assoc.toLowerCase().includes(cleanQuery)
         );
     });
 
@@ -2286,6 +3060,9 @@ function renderUnitWordsTable(moduleName, query = '') {
             ctxHtml = '<span style="color:#6e738d;">—</span>';
         }
 
+        const assocRaw = getAssociationForWord(en);
+        const assocHtml = assocRaw ? `<div class="unit-word-assoc-pill" title="Мнемонічна асоціація: ${escapeHtml(assocRaw)}">💡 ${escapeHtml(assocRaw)}</div>` : '';
+
         const tr = document.createElement('tr');
         tr.className = 'unit-word-row';
         tr.innerHTML = `
@@ -2298,6 +3075,7 @@ function renderUnitWordsTable(moduleName, query = '') {
                             <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07" />
                         </svg>
                     </button>
+                    ${assocHtml}
                 </div>
             </td>
             <td class="col-ua"><div class="unit-word-ua-cell">${escapeHtml(ua)}</div></td>
@@ -2337,6 +3115,9 @@ function saveModule() {
                     CUSTOM_CONTEXT_DATA[word] = ctxString;
                     CUSTOM_CONTEXT_DATA[word.toLowerCase()] = ctxString;
                 }
+                if (item.association !== undefined) {
+                    saveAssociationForWord(word, item.association);
+                }
             }
         });
         localStorage.setItem('my_quiz_custom_context', JSON.stringify(CUSTOM_CONTEXT_DATA));
@@ -2364,6 +3145,9 @@ function saveModule() {
                         const ctxString = ctxUa ? `${ctxEn} (${ctxUa})` : ctxEn;
                         CUSTOM_CONTEXT_DATA[en] = ctxString;
                         CUSTOM_CONTEXT_DATA[en.toLowerCase()] = ctxString;
+                    }
+                    if (matchItem && matchItem.association !== undefined) {
+                        saveAssociationForWord(en, matchItem.association);
                     }
                 }
             }
@@ -2443,18 +3227,78 @@ function cleanTextForTTS(text) {
         .trim();
 }
 
-// Синтез мовлення (Web Speech API) для вимоги англійських слів
-function speakText(text, lang = 'en-US') {
-    if (!text || typeof window === 'undefined') return;
+// Керування голосовими рушіями (Пріоритет Microsoft Edge Natural / Online)
+let preferredEnVoice = null;
+let preferredUkVoice = null;
+
+function initTTSVoices() {
+    if (typeof window === 'undefined' || !('speechSynthesis' in window)) return;
     try {
-        if ('speechSynthesis' in window) {
-            window.speechSynthesis.cancel();
-            const cleaned = cleanTextForTTS(text);
-            const utterance = new SpeechSynthesisUtterance(cleaned || text);
-            utterance.lang = lang;
-            utterance.rate = 0.9;
-            window.speechSynthesis.speak(utterance);
+        const voices = window.speechSynthesis.getVoices();
+        if (!voices || voices.length === 0) return;
+
+        const enVoices = voices.filter(v => v.lang && (v.lang.startsWith('en') || v.lang.includes('US') || v.lang.includes('GB')));
+
+        // Пріоритет №1: Онлайн-нейромережеві м'які голоси Microsoft Edge Natural / Online
+        let bestEn = enVoices.find(v => /Microsoft (?:Jenny|Guy|Aria|Christopher|Eric|Michelle) Online \(Natural\)/i.test(v.name));
+        if (!bestEn) {
+            bestEn = enVoices.find(v => /(?:Natural|Neural|Online)/i.test(v.name) && (v.lang === 'en-US' || v.lang.startsWith('en')));
         }
+        // Пріоритет №2: Google US English або якісні локальні голоси Samantha
+        if (!bestEn) {
+            bestEn = enVoices.find(v => /Google US English/i.test(v.name) || /Samantha/i.test(v.name));
+        }
+        // Пріоритет №3: Системний дефолт en-US
+        if (!bestEn) {
+            bestEn = enVoices.find(v => v.lang === 'en-US') || enVoices[0];
+        }
+        preferredEnVoice = bestEn || null;
+
+        // Пошук українського голосу
+        preferredUkVoice = voices.find(v => v.lang && (v.lang === 'uk-UA' || v.lang.startsWith('uk'))) || null;
+    } catch (e) {
+        console.warn('Помилка в initTTSVoices:', e);
+    }
+}
+
+if (typeof window !== 'undefined' && 'speechSynthesis' in window) {
+    initTTSVoices();
+    window.speechSynthesis.onvoiceschanged = initTTSVoices;
+}
+
+// Синтез мовлення (Web Speech API) з валідацією мови та пріоритетом Edge Natural
+function speakText(text, lang = 'en-US') {
+    if (!text || typeof window === 'undefined' || !('speechSynthesis' in window)) return;
+    const isCyrillic = /[а-яіїєґ]/i.test(text);
+
+    // Сувора валідація мови: якщо текст містить кирилицю
+    if (isCyrillic) {
+        if (!preferredUkVoice) {
+            // Якщо українського голосу немає — м'яко ігноруємо, не ламаємо чергу та не вмикаємо англійський рушій
+            return;
+        }
+        lang = 'uk-UA';
+    } else {
+        lang = 'en-US';
+    }
+
+    try {
+        window.speechSynthesis.cancel();
+        const cleaned = cleanTextForTTS(text);
+        if (!cleaned) return;
+        const utterance = new SpeechSynthesisUtterance(cleaned);
+        utterance.lang = lang;
+        utterance.rate = 0.95;
+        utterance.pitch = 1.0;
+
+        if (lang === 'en-US') {
+            if (!preferredEnVoice) initTTSVoices();
+            if (preferredEnVoice) utterance.voice = preferredEnVoice;
+        } else if (lang === 'uk-UA' && preferredUkVoice) {
+            utterance.voice = preferredUkVoice;
+        }
+
+        window.speechSynthesis.speak(utterance);
     } catch (e) {
         console.warn('Помилка відтворення мовлення SpeechSynthesis:', e);
     }
@@ -2480,20 +3324,36 @@ function getMaskedContextSentenceForTTS(enWord, maskWith = '...') {
 
 function speakCurrentWord() {
     try {
-        if (currentIndex < questions.length) {
-            const currentObj = questions[currentIndex];
-            if (configMode.startsWith('context-')) {
-                if (isShowingAnswer) {
-                    const rawCtx = getContextForWord(currentObj.en);
-                    const parsed = parseContextString(rawCtx);
-                    const sentenceToSpeak = parsed ? parsed.enSentence : currentObj.en;
-                    speakText(sentenceToSpeak || currentObj.en, 'en-US');
-                } else {
-                    const maskedSentence = getMaskedContextSentenceForTTS(currentObj.en, '...');
-                    speakText(maskedSentence || '...', 'en-US');
-                }
+        if (currentIndex >= questions.length) return;
+        const currentObj = questions[currentIndex];
+        const activeMode = currentObj.mode || configMode;
+        const activeTarget = currentObj.target || configTarget;
+
+        if (activeMode.startsWith('context-')) {
+            if (isShowingAnswer) {
+                const rawCtx = getContextForWord(currentObj.en);
+                const parsed = parseContextString(rawCtx);
+                const sentenceToSpeak = parsed ? parsed.enSentence : currentObj.en;
+                speakText(sentenceToSpeak || currentObj.en, 'en-US');
             } else {
+                const maskedSentence = getMaskedContextSentenceForTTS(currentObj.en, '...');
+                speakText(maskedSentence || '...', 'en-US');
+            }
+        } else {
+            if (isShowingAnswer) {
+                // Після відкриття відповіді завжди можна прослухати англійське слово
                 speakText(currentObj.en, 'en-US');
+            } else {
+                if (activeTarget === 'en') {
+                    // Питання англійською — озвучуємо його
+                    speakText(currentObj.question, 'en-US');
+                } else {
+                    // Питання українською: озвучуємо лише якщо в системі є справжній uk-UA голос.
+                    // У ЖОДНОМУ разі не запускати англійський TTS і не спойлерити англійську відповідь!
+                    if (preferredUkVoice) {
+                        speakText(currentObj.question, 'uk-UA');
+                    }
+                }
             }
         }
     } catch (e) {
@@ -2501,10 +3361,82 @@ function speakCurrentWord() {
     }
 }
 
+function maskUkrainianContextTranslation(translation, uaTarget) {
+    if (!translation) return { html: '', isMasked: true };
+    const cleanTrans = translation.trim();
+    if (!uaTarget) return { html: escapeHtml(cleanTrans), isMasked: true };
+
+    const getUaWordStem = (w) => (w.length > 4 ? w.slice(0, -2) : (w.length > 3 ? w.slice(0, -1) : w));
+
+    // Розділяємо синоніми з uaTarget (наприклад: "модний, вишуканий; дорогий" або "малюк (1-3 роки)")
+    const variants = uaTarget
+        .replace(/\([^)]*\)/g, ' ')
+        .split(/[,;/]/)
+        .map(s => s.trim().toLowerCase())
+        .filter(s => s.length >= 2);
+
+    let masked = escapeHtml(cleanTrans);
+
+    // Сортуємо варіанти від найдовших (багатослівні колокації) до коротких
+    variants.sort((a, b) => b.length - a.length);
+
+    // 1. Пошук і заміна повної колокації (2+ слів разом), наприклад "сиве волосся" або "номер телефону"
+    for (const v of variants) {
+        const wordsInV = v.split(/\s+/).filter(w => w.length >= 2);
+        if (wordsInV.length >= 2) {
+            const patternParts = wordsInV.map(w => {
+                const stem = getUaWordStem(w).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+                return `${stem}[а-яіїєґ']*`;
+            });
+            const phraseRegex = new RegExp(`(?<=^|[\\s.,!?;:()«»""'’–-])${patternParts.join('[\\s-]+')}(?=[\\s.,!?;:()«»""'’–-]|$)`, 'gi');
+            if (phraseRegex.test(masked)) {
+                masked = masked.replace(phraseRegex, '[ ... ]');
+                return { html: masked, isMasked: true };
+            }
+        }
+    }
+
+    // 2. Якщо цільовий вираз складається з кількох слів, але знайти всю групу разом не вдалося:
+    // Заборонено маскувати лише одне слово фрази, залишаючи "хвости" на кшталт "[ ... ] волосся".
+    // У такому разі захищаємо від спойлера через делікатний блюр усього перекладу.
+    const hasMultiWordVariant = variants.some(v => v.split(/\s+/).filter(w => w.length >= 2).length >= 2);
+    if (hasMultiWordVariant) {
+        return { html: escapeHtml(cleanTrans), isMasked: false };
+    }
+
+    // 3. Для однозначних слів (1 слово) — шукаємо точну форму або основу
+    for (const v of variants) {
+        const wordsInV = v.split(/\s+/).filter(w => w.length >= 2);
+        if (wordsInV.length === 1) {
+            const stem = getUaWordStem(wordsInV[0]).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            const regex = new RegExp(`(?<=^|[\\s.,!?;:()«»""'’–-])${stem}[а-яіїєґ']*(?=[\\s.,!?;:()«»""'’–-]|$)`, 'gi');
+            if (regex.test(masked)) {
+                masked = masked.replace(regex, '[ ... ]');
+                return { html: masked, isMasked: true };
+            }
+        }
+    }
+
+    // Якщо збіг не знайдено — повертаємо оригінал з міткою для блюру
+    return { html: escapeHtml(cleanTrans), isMasked: false };
+}
+
+function formatWritePrompt(item) {
+    const en = item.en || item.answer || '';
+    const ua = item.question || item.ua || '';
+    const firstLetter = en.charAt(0);
+    const hint = firstLetter ? `[ ${firstLetter}... ]` : '';
+    return `
+        <div class="write-prompt-wrap">
+            <div class="write-prompt-question">${escapeHtml(ua)}</div>
+            ${hint ? `<div class="write-prompt-hint">${escapeHtml(hint)}</div>` : ''}
+        </div>
+    `;
+}
+
 function formatContextPrompt(item, mode) {
     const en = item.en || '';
-    const hasContext = typeof CONTEXT_DATA !== 'undefined';
-    const rawCtx = hasContext ? (CONTEXT_DATA[en] || CONTEXT_DATA[en.toLowerCase()] || '') : '';
+    const rawCtx = getContextForWord(en);
     if (!rawCtx) {
         return escapeHtml(item.question || item.ua || item.en);
     }
@@ -2516,44 +3448,250 @@ function formatContextPrompt(item, mode) {
     let maskedSentence = escapeHtml(sentence);
     const safeEscapedEn = escapeHtml(en).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const safeRegex = new RegExp(`\\b${safeEscapedEn}\\b`, 'gi');
+    const subRegex = new RegExp(safeEscapedEn, 'gi');
 
-    if (safeRegex.test(maskedSentence)) {
+    const hasExact = safeRegex.test(maskedSentence);
+    const hasSub = !hasExact && subRegex.test(maskedSentence);
+
+    if (hasExact) {
         if (mode === 'context-write') {
             const hint = escapeHtml(en.charAt(0)) + '_'.repeat(Math.max(1, en.length - 1));
             maskedSentence = maskedSentence.replace(safeRegex, `<span class="blank">[ ${hint} ]</span>`);
         } else {
             maskedSentence = maskedSentence.replace(safeRegex, `<span class="blank">[ ... ]</span>`);
         }
-    } else {
-        const subRegex = new RegExp(safeEscapedEn, 'gi');
-        if (subRegex.test(maskedSentence)) {
-            if (mode === 'context-write') {
-                const hint = escapeHtml(en.charAt(0)) + '_'.repeat(Math.max(1, en.length - 1));
-                maskedSentence = maskedSentence.replace(subRegex, `<span class="blank">[ ${hint} ]</span>`);
-            } else {
-                maskedSentence = maskedSentence.replace(subRegex, `<span class="blank">[ ... ]</span>`);
-            }
+    } else if (hasSub) {
+        if (mode === 'context-write') {
+            const hint = escapeHtml(en.charAt(0)) + '_'.repeat(Math.max(1, en.length - 1));
+            maskedSentence = maskedSentence.replace(subRegex, `<span class="blank">[ ${hint} ]</span>`);
         } else {
-            if (mode === 'context-write') {
-                const hint = escapeHtml(en.charAt(0)) + '_'.repeat(Math.max(1, en.length - 1));
-                maskedSentence = maskedSentence + ` <span class="blank">[ ${hint} ]</span>`;
-            } else {
-                maskedSentence = maskedSentence + ` <span class="blank">[ ... ]</span>`;
-            }
+            maskedSentence = maskedSentence.replace(subRegex, `<span class="blank">[ ... ]</span>`);
+        }
+    } else {
+        // Якщо точний збіг не знайдено — не виносимо відірвану маску під речення!
+        if (mode === 'context-write') {
+            // Для context-write перемикаємося на класичний формат правопису
+            const targetUa = item.ua || (typeof ALL_DATA !== 'undefined' && ALL_DATA[selectedModule] ? ALL_DATA[selectedModule][en] : '');
+            return formatWritePrompt({
+                en: en,
+                question: targetUa || translation || item.ua || en
+            });
+        } else {
+            // Для слота замінюємо все речення або показуємо слово
+            maskedSentence = `<span class="blank">[ ... ]</span>`;
+        }
+    }
+
+    let translationHtml = '';
+    if (translation) {
+        const targetUa = item.ua || (ALL_DATA[selectedModule] ? ALL_DATA[selectedModule][en] : '');
+        const maskRes = maskUkrainianContextTranslation(translation, targetUa);
+        const fullEscaped = escapeHtml(translation);
+        if (maskRes.isMasked) {
+            translationHtml = `<div class="context-prompt-sub" data-full-translation="${fullEscaped}">(${maskRes.html})</div>`;
+        } else {
+            translationHtml = `<div class="context-prompt-sub spoiler-blurred" data-full-translation="${fullEscaped}" onclick="this.classList.toggle('revealed')" title="Клікніть, щоб відкрити переклад">(${maskRes.html})</div>`;
         }
     }
 
     return `
         <div class="context-prompt-wrap">
             <div class="context-prompt-sentence">${maskedSentence}</div>
-            ${translation ? `<div class="context-prompt-sub">(${escapeHtml(translation)})</div>` : ''}
+            ${translationHtml}
         </div>
     `;
+}
+
+function revealFullContextTranslation(currentObj) {
+    if (!currentObj) return;
+    const subEl = document.querySelector('#target-word .context-prompt-sub');
+    if (subEl) {
+        let fullTrans = subEl.getAttribute('data-full-translation');
+        if (!fullTrans && currentObj.en) {
+            const rawCtx = getContextForWord(currentObj.en);
+            const parsed = parseContextString(rawCtx);
+            if (parsed && parsed.uaTranslation) {
+                fullTrans = parsed.uaTranslation;
+            }
+        }
+        if (fullTrans) {
+            subEl.innerText = `(${fullTrans})`;
+            subEl.classList.remove('spoiler-blurred');
+            subEl.classList.add('revealed');
+            subEl.style.filter = 'none';
+            subEl.style.opacity = '1';
+        }
+    }
+}
+
+// Spaced Repetition: Визначення рівня володіння словом для режиму Smart Mix
+function getWordMasteryLevel(enWord, moduleName) {
+    const statKey = `${moduleName}_${enWord}`;
+    const m = MEMORY_STATS[statKey];
+
+    // Якщо слово нове або ще не має історії відповідей -> Рівень 1
+    if (!m || !m.history || m.history.length === 0) {
+        return 1;
+    }
+
+    // Рахуємо стрік безпомилкових відповідей з останніх спроб
+    let consecutiveCorrect = 0;
+    for (let i = m.history.length - 1; i >= 0; i--) {
+        if (m.history[i] === true) {
+            consecutiveCorrect++;
+        } else {
+            break;
+        }
+    }
+
+    const lastCorrect = m.history[m.history.length - 1] === true;
+    const isLearned = m.score <= 0 && lastCorrect && consecutiveCorrect >= 2;
+
+    let mastery = 0;
+    if (isLearned) {
+        mastery = 4 + consecutiveCorrect;
+    } else if (consecutiveCorrect >= 3) {
+        mastery = 4;
+    } else if (consecutiveCorrect >= 1 && lastCorrect) {
+        mastery = consecutiveCorrect >= 2 ? 3 : 2;
+    } else {
+        mastery = 1;
+    }
+
+    if (m.smartScore !== undefined) {
+        mastery = m.smartScore;
+    }
+
+    if (mastery >= 4) return 3; // Рівень 3: Міцне знання (write / context-write)
+    if (mastery >= 2) return 2; // Рівень 2: Середнє слово (context-slot або зворотний вибір)
+    return 1;                   // Рівень 1: Нове або слабке слово (choice-4)
+}
+
+// Генерація сесії тренажера Smart Mix (Методика інтервалів)
+function generateSmartMixSession() {
+    configMaterial = 'smart-mix';
+    configMode = 'choice';
+    configTarget = 'ua';
+    const limitVal = getSelectedQuizLimit();
+    const isHardOnly = document.getElementById('hard-only-toggle')?.checked ?? false;
+
+    let originalPairs = Object.entries(ALL_DATA[selectedModule] || {});
+    if (originalPairs.length === 0) {
+        alert('⚠️ Модуль порожній');
+        return;
+    }
+
+    if (isHardOnly) {
+        const hardPairs = originalPairs.filter(pair => {
+            const statKey = `${selectedModule}_${pair[0]}`;
+            const m = MEMORY_STATS[statKey];
+            return !m || m.score > 0 || (m.history && m.history.includes(false));
+        });
+        if (hardPairs.length > 0) {
+            originalPairs = hardPairs;
+        } else {
+            alert('🎉 Чудово! У цьому модулі немає складних слів. Запускаємо стандартне тренування.');
+        }
+    }
+
+    // Зважений відбір карток на основі рейтингу складності у MEMORY_STATS
+    let pool = [];
+    originalPairs.forEach(pair => {
+        const en = pair[0];
+        const statKey = `${selectedModule}_${en}`;
+        const wordStat = MEMORY_STATS[statKey] || { score: 2, history: [] };
+        let weight = Math.max(1, wordStat.score || 2);
+        for (let i = 0; i < weight; i++) {
+            pool.push(pair);
+        }
+    });
+
+    pool.sort(() => Math.random() - 0.5);
+    let selectedPairs = [];
+    let usedEn = new Set();
+    pool.forEach(pair => {
+        if (!usedEn.has(pair[0])) {
+            selectedPairs.push(pair);
+            usedEn.add(pair[0]);
+        }
+    });
+
+    originalPairs.forEach(pair => {
+        if (!usedEn.has(pair[0])) {
+            selectedPairs.push(pair);
+            usedEn.add(pair[0]);
+        }
+    });
+
+    let targetLimit = limitVal === 'max' ? selectedPairs.length : parseInt(limitVal);
+    selectedPairs = selectedPairs.slice(0, Math.min(targetLimit, selectedPairs.length));
+
+    // Адаптивний вибір формату запитання для кожного слова
+    questions = selectedPairs.map(pair => {
+        const en = pair[0];
+        const ua = pair[1];
+        const level = getWordMasteryLevel(en, selectedModule);
+        const rawCtx = getContextForWord(en);
+        const hasContext = Boolean(rawCtx && getMaskedContext(en, rawCtx));
+        const assoc = getAssociationForWord(en);
+
+        let qItem = {
+            en: en,
+            ua: ua,
+            association: assoc,
+            level: level
+        };
+
+        if (level === 1) {
+            // Рівень 1 (Нове/слабке): choice-4 (вибір без стресу)
+            qItem.mode = 'choice';
+            qItem.target = 'ua';
+            qItem.question = ua;
+            qItem.answer = en;
+        } else if (level === 2) {
+            // Рівень 2 (Середнє): context-slot (якщо є контекст) або зворотний вибір en -> ua
+            if (hasContext) {
+                qItem.mode = 'context-slot';
+                qItem.target = 'en';
+                qItem.question = en;
+                qItem.answer = en;
+            } else {
+                qItem.mode = 'choice';
+                qItem.target = 'en';
+                qItem.question = en;
+                qItem.answer = ua;
+            }
+        } else {
+            // Рівень 3 (Міцне знання): context-write або write (активний правопис)
+            if (hasContext) {
+                qItem.mode = 'context-write';
+                qItem.target = 'en';
+                qItem.question = en;
+                qItem.answer = en;
+            } else {
+                qItem.mode = 'write';
+                qItem.target = 'ua';
+                qItem.question = ua;
+                qItem.answer = en;
+            }
+        }
+        return qItem;
+    });
+
+    questions.sort(() => Math.random() - 0.5);
+
+    currentIndex = 0; score = 0; currentCombo = 0; sessionLogs = [];
+    lastMistakeData = null; lastMistakeIndex = null; updateLastMistakeBtnVisibility(); closeLastMistakeDrawer();
+    switchScreen('quiz-screen'); showQuestion();
 }
 
 function generateQuiz() {
     saveUserSettings();
     configMaterial = document.querySelector('input[name="quiz-material"]:checked')?.value || 'words';
+    if (configMaterial === 'smart-mix') {
+        generateSmartMixSession();
+        return;
+    }
     configMode = document.querySelector('input[name="quiz-mode"]:checked')?.value || 'choice';
     if (configMaterial === 'words') {
         configTarget = document.querySelector('input[name="quiz-lang"]:checked')?.value || 'ua';
@@ -2690,19 +3828,18 @@ function getMaskedContext(enWord, rawCtx) {
 
     const escapedEn = enWord.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
     const testRegex = new RegExp(`\\b${escapedEn}\\b`, 'i');
+    const subTestRegex = new RegExp(escapedEn, 'i');
 
     let masked = parsed.enSentence;
     if (testRegex.test(masked)) {
         const replaceRegex = new RegExp(`\\b${escapedEn}\\b`, 'gi');
         masked = masked.replace(replaceRegex, '<span class="blank">[ ... ]</span>');
+    } else if (subTestRegex.test(masked)) {
+        const subReplaceRegex = new RegExp(escapedEn, 'gi');
+        masked = masked.replace(subReplaceRegex, '<span class="blank">[ ... ]</span>');
     } else {
-        const subTestRegex = new RegExp(escapedEn, 'i');
-        if (subTestRegex.test(masked)) {
-            const subReplaceRegex = new RegExp(escapedEn, 'gi');
-            masked = masked.replace(subReplaceRegex, '<span class="blank">[ ... ]</span>');
-        } else {
-            masked = parsed.enSentence + ' <span class="blank">[ ... ]</span>';
-        }
+        // Якщо точного збігу форми слова в реченні немає, не додаємо маску наприкінці
+        return null;
     }
 
     return {
@@ -2726,31 +3863,746 @@ function setActionBtnLabel(state, isVisible = true) {
     }
 }
 
+function updateFloatingComboBadge() {
+    const badgeEl = document.getElementById('quiz-combo-badge');
+    if (!badgeEl) return;
+    if (currentCombo >= 2) {
+        badgeEl.innerHTML = `<span class="combo-icon">⚡</span> <span class="combo-num">${currentCombo}x</span> COMBO`;
+        badgeEl.style.display = 'flex';
+    } else {
+        badgeEl.style.display = 'none';
+    }
+}
+
+let selectionTranslateTooltipEl = null;
+
+const CORE_HOMOPHONE_OVERRIDES = {
+    "whether": ["чи", "незалежно від того", "байдуже", "чи... чи"],
+    "weather": ["погода", "витримувати"],
+    "distinguished": ["видатний", "шановний", "заслужений", "визначний", "вишуканий", "знаменитий"],
+    "their": ["їхній", "їхня", "їхнє", "їхні"],
+    "there": ["там", "туди", "ось"],
+    "affect": ["впливати", "діяти на", "зворушувати"],
+    "effect": ["ефект", "результат", "наслідок"]
+};
+
+function sanitizeChipText(text) {
+    if (!text) return '';
+    let s = String(text)
+        .replace(/^[:;,\.\-\s—–\(\)\[\]]+|[:;,\.\-\s—–\(\)\[\]]+$/g, '')
+        .trim();
+    if (!s) return '';
+    // Якщо це не акронім (як USA), переводимо в нижній регістр
+    if (!/^[A-ZА-ЯІЇЄҐ]{2,}$/.test(s)) {
+        s = s.charAt(0).toLowerCase() + s.slice(1);
+    }
+    return s.replace(/^[:;,\.\-\s—–\(\)\[\]]+|[:;,\.\-\s—–\(\)\[\]]+$/g, '').trim();
+}
+
+/**
+ * Синхронно підсвічує перекладене слово/фразу в українському реченні-прикладі
+ */
+function highlightUkrainianTranslation(safeUa, candidates) {
+    if (!safeUa || !candidates || !candidates.length) return safeUa;
+    const sorted = [...candidates]
+        .map(c => String(c).trim().toLowerCase())
+        .filter(c => c.length >= 2)
+        .sort((a, b) => b.length - a.length);
+
+    for (const cand of sorted) {
+        const escaped = cand.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+        const re = new RegExp(`(^|[\\s,;.:!?()"\x27«»—–])(${escaped})([\\s,;.:!?()"\x27«»—–]|$)`, 'i');
+        if (re.test(safeUa)) {
+            return safeUa.replace(re, `$1<span class="selection-translate-highlight">$2</span>$3`);
+        }
+    }
+    return safeUa;
+}
+
+const COMMON_CORE_WORDS = {
+    "be": "бути",
+    "need": "потреба, потребувати",
+    "there is": "є, існує",
+    "there is no need": "немає потреби",
+    "have": "мати",
+    "has": "має",
+    "had": "мав, мала, мали",
+    "do": "робити",
+    "does": "робить",
+    "did": "робив",
+    "make": "робити, створювати",
+    "made": "зробив, створений",
+    "felt": "відчув (feel)",
+    "feel": "відчувати",
+    "want": "хотіти",
+    "can": "могти, вміти",
+    "could": "міг, міг би",
+    "will": "буде (майбутній час)",
+    "would": "б (умовний спосіб)",
+    "should": "варто, слід",
+    "must": "мусити, зобов'язаний",
+    "say": "казати",
+    "said": "сказав",
+    "tell": "розповідати",
+    "told": "розповів",
+    "ask": "питати, просити",
+    "go": "йти, їхати",
+    "went": "пішов",
+    "gone": "пішов (минуле)",
+    "come": "приходити",
+    "came": "прийшов",
+    "get": "отримувати, ставати",
+    "got": "отримав",
+    "take": "брати",
+    "took": "взяв",
+    "give": "давати",
+    "gave": "дав",
+    "see": "бачити",
+    "saw": "бачив",
+    "look": "дивитися, виглядати",
+    "know": "знати",
+    "knew": "знав",
+    "think": "думати",
+    "thought": "думав, думка",
+    "use": "використовувати",
+    "find": "знаходити",
+    "found": "знайшов"
+};
+
+function hideSelectionTranslateTooltip() {
+    if (selectionTranslateTooltipEl) {
+        selectionTranslateTooltipEl.remove();
+        selectionTranslateTooltipEl = null;
+    }
+}
+
+/**
+ * Знаходить усі унікальні варіанти перекладу слова в локальних модулях
+ */
+function findLocalWordVariants(word) {
+    if (!word) return [];
+    const clean = word.trim().toLowerCase().replace(/^[^\wа-яіїєґ']+|[^\wа-яіїєґ']+$/gi, '');
+    if (!clean) return [];
+
+    // Перевірка омофонів / омонімів з ручними оверрайдами
+    if (CORE_HOMOPHONE_OVERRIDES[clean]) {
+        return [...CORE_HOMOPHONE_OVERRIDES[clean]];
+    }
+
+    const variants = [];
+    const seen = new Set();
+
+    const addVariantsFromString = (str) => {
+        if (!str) return;
+        const parts = String(str).split(/[,;/]/).map(p => p.trim()).filter(Boolean);
+        for (const p of parts) {
+            const sanitized = sanitizeChipText(p);
+            if (!sanitized) continue;
+            const pLow = sanitized.toLowerCase();
+            if (!seen.has(pLow) && pLow !== clean) {
+                seen.add(pLow);
+                variants.push(sanitized);
+            }
+        }
+    };
+
+    // 1. Базові частотні слова
+    if (COMMON_CORE_WORDS[clean]) {
+        addVariantsFromString(COMMON_CORE_WORDS[clean]);
+    }
+
+    // 2. Поточний модуль (має найвищий пріоритет)
+    if (typeof ALL_DATA !== 'undefined' && ALL_DATA[selectedModule]) {
+        const curMod = ALL_DATA[selectedModule];
+        for (const [k, v] of Object.entries(curMod)) {
+            if (k.toLowerCase() === clean) {
+                addVariantsFromString(v);
+            }
+        }
+    }
+
+    // 3. Усі інші завантажені модулі
+    if (typeof ALL_DATA !== 'undefined') {
+        for (const mod of Object.values(ALL_DATA)) {
+            if (!mod) continue;
+            for (const [k, v] of Object.entries(mod)) {
+                if (k.toLowerCase() === clean) {
+                    addVariantsFromString(v);
+                }
+            }
+        }
+    }
+
+    // 4. Модулі за замовчуванням
+    if (typeof DEFAULT_MODULES !== 'undefined') {
+        for (const mod of Object.values(DEFAULT_MODULES)) {
+            if (!mod) continue;
+            for (const [k, v] of Object.entries(mod)) {
+                if (k.toLowerCase() === clean) {
+                    addVariantsFromString(v);
+                }
+            }
+        }
+    }
+
+    return variants;
+}
+
+/**
+ * Знаходить до 2 речень-прикладів із бази контексту для виділеного слова
+ */
+function findWordExamples(word) {
+    if (!word) return [];
+    const clean = word.trim().toLowerCase().replace(/^[^\wа-яіїєґ']+|[^\wа-яіїєґ']+$/gi, '');
+    if (!clean) return [];
+
+    const examples = [];
+    const seenKeys = new Set();
+    const escaped = clean.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+    const wordRegex = new RegExp(`\\b${escaped}\\w*\\b`, 'i');
+
+    const scanContextSource = (sourceObj) => {
+        if (!sourceObj || typeof sourceObj !== 'object') return;
+        for (const [key, ctxVal] of Object.entries(sourceObj)) {
+            if (!ctxVal || seenKeys.has(key)) continue;
+            const parenMatch = String(ctxVal).match(/^(.*?)\s*\((.*?)\)\s*$/);
+            const enText = parenMatch ? parenMatch[1].trim() : String(ctxVal).trim();
+            const uaText = parenMatch ? parenMatch[2].trim() : '';
+
+            if (wordRegex.test(enText) || wordRegex.test(key)) {
+                seenKeys.add(key);
+                examples.push({ en: enText, ua: uaText, key });
+                if (examples.length >= 2) return;
+            }
+        }
+    };
+
+    if (typeof CUSTOM_CONTEXT_DATA !== 'undefined') scanContextSource(CUSTOM_CONTEXT_DATA);
+    if (examples.length < 2 && typeof CONTEXT_DATA !== 'undefined') scanContextSource(CONTEXT_DATA);
+
+    return examples;
+}
+
+function findInLocalDictionaries(cleanText) {
+    if (!cleanText) return null;
+    const clean = cleanText.trim().toLowerCase().replace(/^[^\wа-яіїєґ']+|[^\wа-яіїєґ']+$/gi, '');
+    if (!clean) return null;
+
+    // 1. Базові частотні дієслова та фрази
+    if (COMMON_CORE_WORDS[clean]) return COMMON_CORE_WORDS[clean];
+
+    // 2. Поточний обраний модуль
+    const currentUnitData = (typeof ALL_DATA !== 'undefined' && ALL_DATA[selectedModule]) ? ALL_DATA[selectedModule] : {};
+    if (currentUnitData[clean]) return currentUnitData[clean];
+
+    // 3. Усі користувацькі модулі в пам'яті
+    if (typeof ALL_DATA !== 'undefined') {
+        for (const mod of Object.values(ALL_DATA)) {
+            if (!mod) continue;
+            for (const [k, v] of Object.entries(mod)) {
+                if (k.toLowerCase() === clean) return v;
+            }
+        }
+    }
+
+    // 4. Словники за замовчуванням
+    if (typeof DEFAULT_MODULES !== 'undefined') {
+        for (const mod of Object.values(DEFAULT_MODULES)) {
+            if (!mod) continue;
+            for (const [k, v] of Object.entries(mod)) {
+                if (k.toLowerCase() === clean) return v;
+            }
+        }
+    }
+
+    // 5. Контекстні речення (переклад контексту)
+    if (typeof CONTEXT_DATA !== 'undefined' && CONTEXT_DATA[clean]) {
+        const parsed = parseContextString(CONTEXT_DATA[clean]);
+        if (parsed && parsed.uaTranslation) return parsed.uaTranslation;
+    }
+
+    return null;
+}
+
+/**
+ * Отримує багатозначні варіанти перекладу через MyMemory API (поле matches)
+ */
+async function fetchWordTranslationData(text) {
+    const cleanText = text ? text.trim() : '';
+    if (!cleanText) return { variants: [], phraseTranslation: null };
+
+    const isSingleWord = !cleanText.includes(' ') && cleanText.length < 35;
+    const cleanWordLower = cleanText.toLowerCase().replace(/^[^\wа-яіїєґ']+|[^\wа-яіїєґ']+$/gi, '');
+
+    // Якщо слово є в довіднику омофонів — віддаємо без виклику API, щоб уникнути шуму
+    if (isSingleWord && CORE_HOMOPHONE_OVERRIDES[cleanWordLower]) {
+        return {
+            variants: [...CORE_HOMOPHONE_OVERRIDES[cleanWordLower]],
+            phraseTranslation: null
+        };
+    }
+
+    const localVariants = isSingleWord ? findLocalWordVariants(cleanText) : [];
+
+    try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanText)}&langpair=en|uk`;
+        const res = await fetch(url);
+        if (!res.ok) {
+            return {
+                variants: localVariants,
+                phraseTranslation: isSingleWord ? null : findInLocalDictionaries(cleanText)
+            };
+        }
+        const data = await res.json();
+        const seen = new Set(localVariants.map(v => v.toLowerCase()));
+        const mergedVariants = [...localVariants];
+
+        const cleanAndAddVariant = (raw) => {
+            if (!raw) return;
+            const cleaned = String(raw).trim()
+                .replace(/[.*…]+$/g, '')
+                .replace(/^[.*…]+/g, '')
+                .replace(/<[^>]+>/g, '')
+                .trim();
+            if (!cleaned || cleaned.length < 2) return;
+            if (cleaned.toLowerCase() === cleanText.toLowerCase() || cleaned.toUpperCase().includes('QUERY LENGTH LIMIT')) return;
+
+            const parts = cleaned.split(/[,;/]/).map(p => p.trim()).filter(Boolean);
+            for (const part of parts) {
+                const sanitized = sanitizeChipText(part);
+                if (!sanitized) continue;
+                const pLow = sanitized.toLowerCase();
+                if (!seen.has(pLow) && pLow !== cleanText.toLowerCase()) {
+                    seen.add(pLow);
+                    mergedVariants.push(sanitized);
+                }
+            }
+        };
+
+        if (data && data.responseData && data.responseData.translatedText) {
+            const rawTrans = data.responseData.translatedText.trim();
+            if (isSingleWord) {
+                cleanAndAddVariant(rawTrans);
+            } else {
+                return {
+                    variants: [],
+                    phraseTranslation: (rawTrans.toLowerCase() !== cleanText.toLowerCase() && !rawTrans.toUpperCase().includes('QUERY LENGTH LIMIT'))
+                        ? rawTrans
+                        : findInLocalDictionaries(cleanText)
+                };
+            }
+        }
+
+        if (isSingleWord && Array.isArray(data.matches)) {
+            for (const m of data.matches) {
+                if (m && m.translation) {
+                    cleanAndAddVariant(m.translation);
+                    if (mergedVariants.length >= 10) break;
+                }
+            }
+        }
+
+        return {
+            variants: mergedVariants.slice(0, 8),
+            phraseTranslation: null
+        };
+    } catch (err) {
+        console.warn('Помилка зовнішнього перекладу:', err);
+        return {
+            variants: localVariants,
+            phraseTranslation: isSingleWord ? null : findInLocalDictionaries(cleanText)
+        };
+    }
+}
+
+async function fetchQuickTranslation(text) {
+    const cleanText = text ? text.trim() : '';
+    if (!cleanText) return null;
+
+    const localMatch = findInLocalDictionaries(cleanText);
+    if (localMatch) return localMatch;
+
+    try {
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(cleanText)}&langpair=en|uk`;
+        const res = await fetch(url);
+        if (!res.ok) return null;
+        const data = await res.json();
+        if (data && data.responseData && data.responseData.translatedText) {
+            const trans = data.responseData.translatedText.trim();
+            if (trans.toLowerCase() === cleanText.toLowerCase() || trans.toUpperCase().includes('QUERY LENGTH LIMIT')) {
+                return null;
+            }
+            return trans;
+        }
+    } catch (err) {
+        console.warn('Помилка зовнішнього перекладу:', err);
+    }
+    return null;
+}
+
+function initSelectionTranslateFeature() {
+    // Глобальний обробник виділення тексту для всього документа (Reverso-style Smart Tooltip)
+    document.addEventListener('mouseup', function (e) {
+        // Якщо клік був на самому поп-апі або його елементах — не закривати та не перераховувати
+        if (e.target.closest('.selection-translate-popup')) return;
+
+        setTimeout(async () => {
+            const sel = window.getSelection();
+            if (!sel || sel.isCollapsed) {
+                hideSelectionTranslateTooltip();
+                return;
+            }
+
+            const rawText = sel.toString();
+            const text = rawText.trim();
+            if (text.length < 1 || text.length > 90) {
+                hideSelectionTranslateTooltip();
+                return;
+            }
+
+            const range = sel.getRangeAt(0);
+            const rect = range.getBoundingClientRect();
+            if (!rect || (rect.width === 0 && rect.height === 0)) {
+                hideSelectionTranslateTooltip();
+                return;
+            }
+
+            hideSelectionTranslateTooltip();
+
+            const isSingleWord = !text.includes(' ') && text.length < 35;
+            const reversoUrl = `https://context.reverso.net/translation/english-ukrainian/${encodeURIComponent(text.toLowerCase())}`;
+
+            // Створюємо поп-ап у стилі Reverso
+            const tooltip = document.createElement('div');
+            tooltip.className = 'selection-translate-popup';
+
+            // 1. Хедер: назва слова + кнопки озвучення та Reverso
+            const header = document.createElement('div');
+            header.className = 'selection-translate-header';
+
+            const titleWrap = document.createElement('div');
+            titleWrap.className = 'selection-translate-title-wrap';
+
+            const wordSpan = document.createElement('span');
+            wordSpan.className = 'selection-translate-word';
+            wordSpan.textContent = text;
+            titleWrap.appendChild(wordSpan);
+
+            const actionsWrap = document.createElement('div');
+            actionsWrap.className = 'selection-translate-actions';
+
+            const audioBtn = document.createElement('button');
+            audioBtn.type = 'button';
+            audioBtn.className = 'selection-translate-btn-audio';
+            audioBtn.title = 'Озвучити виділений текст';
+            audioBtn.innerHTML = '🔊';
+            audioBtn.onclick = (btnEv) => {
+                btnEv.stopPropagation();
+                btnEv.preventDefault();
+                speakChoicePreview(text);
+            };
+
+            const reversoLink = document.createElement('a');
+            reversoLink.className = 'selection-translate-reverso-link';
+            reversoLink.href = reversoUrl;
+            reversoLink.target = '_blank';
+            reversoLink.rel = 'noopener noreferrer';
+            reversoLink.title = 'Відкрити контекстний словник Reverso у новій вкладці';
+            reversoLink.innerHTML = '🔗 Reverso';
+            reversoLink.onclick = (linkEv) => {
+                linkEv.stopPropagation();
+            };
+
+            actionsWrap.appendChild(audioBtn);
+            actionsWrap.appendChild(reversoLink);
+
+            header.appendChild(titleWrap);
+            header.appendChild(actionsWrap);
+            tooltip.appendChild(header);
+
+            // 2. Контейнер вмісту (чіпи або фраза)
+            const contentWrap = document.createElement('div');
+            contentWrap.className = 'selection-translate-content';
+
+            const initialLocalVariants = isSingleWord ? findLocalWordVariants(text) : [];
+            const initialLocalPhrase = !isSingleWord ? findInLocalDictionaries(text) : null;
+
+            if (isSingleWord && initialLocalVariants.length > 0) {
+                const chipsWrap = document.createElement('div');
+                chipsWrap.className = 'selection-translate-chips-wrap';
+                chipsWrap.innerHTML = initialLocalVariants.slice(0, 8).map((v, idx) => `
+                    <span class="selection-translate-chip ${idx === 0 ? 'primary' : ''}">${escapeHtml(v)}</span>
+                `).join('');
+                contentWrap.appendChild(chipsWrap);
+            } else if (!isSingleWord && initialLocalPhrase) {
+                const phraseDiv = document.createElement('div');
+                phraseDiv.className = 'selection-translate-phrase-result';
+                phraseDiv.textContent = initialLocalPhrase;
+                contentWrap.appendChild(phraseDiv);
+            } else {
+                const loadingDiv = document.createElement('div');
+                loadingDiv.className = 'selection-translate-loading';
+                loadingDiv.innerHTML = '<span style="opacity:0.8;">⏳ перекладаю...</span>';
+                contentWrap.appendChild(loadingDiv);
+            }
+
+            tooltip.appendChild(contentWrap);
+
+            // 3. Блок прикладів речень (якщо це слово)
+            let examplesWrap = null;
+            if (isSingleWord) {
+                const examples = findWordExamples(text);
+                if (examples.length > 0) {
+                    examplesWrap = document.createElement('div');
+                    examplesWrap.className = 'selection-translate-examples-wrap';
+                    examplesWrap.innerHTML = examples.slice(0, 2).map(ex => {
+                        const cleanWord = text.trim().replace(/^[^\wа-яіїєґ']+|[^\wа-яіїєґ']+$/gi, '');
+                        const safeEn = escapeHtml(ex.en);
+                        let highlightedEn = safeEn;
+                        if (cleanWord) {
+                            const escapedWord = cleanWord.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+                            const re = new RegExp(`(\\b${escapedWord}\\w*\\b)`, 'gi');
+                            highlightedEn = safeEn.replace(re, '<span class="selection-translate-highlight">$1</span>');
+                        }
+
+                        // Синхронне підсвічування відповідного слова в українському перекладі
+                        const uaCandidates = [
+                            ...initialLocalVariants,
+                            ...(CORE_HOMOPHONE_OVERRIDES[cleanWord.toLowerCase()] || [])
+                        ];
+                        const safeUa = escapeHtml(ex.ua);
+                        const highlightedUa = highlightUkrainianTranslation(safeUa, uaCandidates);
+
+                        return `
+                            <div class="selection-translate-example">
+                                <div class="selection-translate-ex-en">${highlightedEn}</div>
+                                ${safeUa ? `<div class="selection-translate-ex-ua">${highlightedUa}</div>` : ''}
+                            </div>
+                        `;
+                    }).join('');
+                    tooltip.appendChild(examplesWrap);
+                }
+            }
+
+            // Позиціонування з авто-фліпом та захистом від виходу за краї вікна
+            document.body.appendChild(tooltip);
+            selectionTranslateTooltipEl = tooltip;
+
+            const tooltipRect = tooltip.getBoundingClientRect();
+            const popupWidth = tooltipRect.width || 360;
+            const targetLeft = rect.left + rect.width / 2;
+            const minCenter = popupWidth / 2 + 16;
+            const maxCenter = window.innerWidth - popupWidth / 2 - 16;
+            const posX = Math.max(minCenter, Math.min(maxCenter, targetLeft));
+            const shouldFlipBottom = rect.top < (tooltipRect.height + 15);
+
+            tooltip.style.left = `${posX}px`;
+            const arrowPercent = Math.max(12, Math.min(88, ((targetLeft - (posX - popupWidth / 2)) / popupWidth) * 100));
+            tooltip.style.setProperty('--arrow-left', `${arrowPercent.toFixed(1)}%`);
+
+            if (shouldFlipBottom) {
+                tooltip.classList.add('flipped-bottom');
+                tooltip.style.top = `${rect.bottom}px`;
+            } else {
+                tooltip.classList.remove('flipped-bottom');
+                tooltip.style.top = `${rect.top}px`;
+            }
+
+            // Асинхронне довантаження через Web API при потребі
+            const needsApiFetch = (isSingleWord && initialLocalVariants.length === 0) || (!isSingleWord && !initialLocalPhrase);
+            if (needsApiFetch) {
+                const data = await fetchWordTranslationData(text);
+                if (selectionTranslateTooltipEl === tooltip) {
+                    contentWrap.innerHTML = '';
+                    if (isSingleWord) {
+                        if (data.variants && data.variants.length > 0) {
+                            const chipsWrap = document.createElement('div');
+                            chipsWrap.className = 'selection-translate-chips-wrap';
+                            chipsWrap.innerHTML = data.variants.slice(0, 8).map((v, idx) => `
+                                <span class="selection-translate-chip ${idx === 0 ? 'primary' : ''}">${escapeHtml(v)}</span>
+                            `).join('');
+                            contentWrap.appendChild(chipsWrap);
+                        } else {
+                            const notFoundDiv = document.createElement('div');
+                            notFoundDiv.className = 'selection-translate-loading';
+                            notFoundDiv.textContent = 'Варіантів не знайдено';
+                            contentWrap.appendChild(notFoundDiv);
+                        }
+                    } else {
+                        if (data.phraseTranslation) {
+                            const phraseDiv = document.createElement('div');
+                            phraseDiv.className = 'selection-translate-phrase-result';
+                            phraseDiv.textContent = data.phraseTranslation;
+                            contentWrap.appendChild(phraseDiv);
+                        } else {
+                            const notFoundDiv = document.createElement('div');
+                            notFoundDiv.className = 'selection-translate-loading';
+                            notFoundDiv.textContent = 'Переклад недоступний';
+                            contentWrap.appendChild(notFoundDiv);
+                        }
+                    }
+
+                    // Перерахунок позиції після оновлення контенту
+                    const updatedRect = tooltip.getBoundingClientRect();
+                    const updatedWidth = updatedRect.width || popupWidth;
+                    const updatedMinCenter = updatedWidth / 2 + 16;
+                    const updatedMaxCenter = window.innerWidth - updatedWidth / 2 - 16;
+                    const updatedPosX = Math.max(updatedMinCenter, Math.min(updatedMaxCenter, targetLeft));
+
+                    tooltip.style.left = `${updatedPosX}px`;
+                    const updatedArrowPercent = Math.max(12, Math.min(88, ((targetLeft - (updatedPosX - updatedWidth / 2)) / updatedWidth) * 100));
+                    tooltip.style.setProperty('--arrow-left', `${updatedArrowPercent.toFixed(1)}%`);
+
+                    if (rect.top < (updatedRect.height + 15)) {
+                        tooltip.classList.add('flipped-bottom');
+                        tooltip.style.top = `${rect.bottom}px`;
+                    } else {
+                        tooltip.classList.remove('flipped-bottom');
+                        tooltip.style.top = `${rect.top}px`;
+                    }
+                }
+            }
+        }, 30);
+    });
+
+    document.addEventListener('mousedown', function (e) {
+        if (selectionTranslateTooltipEl && !selectionTranslateTooltipEl.contains(e.target)) {
+            hideSelectionTranslateTooltip();
+        }
+    });
+}
+
+function speakChoicePreview(text) {
+    if (!text) return;
+    try {
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.cancel();
+            const cleaned = typeof cleanTextForTTS === 'function' ? cleanTextForTTS(text) : text;
+            if (!cleaned) return;
+            const u = new SpeechSynthesisUtterance(cleaned);
+            const isEn = /[a-zA-Z]/.test(cleaned);
+            if (isEn && preferredEnVoice) {
+                u.voice = preferredEnVoice;
+                u.lang = preferredEnVoice.lang || 'en-US';
+            } else if (!isEn && preferredUkVoice) {
+                u.voice = preferredUkVoice;
+                u.lang = preferredUkVoice.lang || 'uk-UA';
+            } else {
+                u.lang = isEn ? 'en-US' : 'uk-UA';
+            }
+            u.rate = 0.95;
+            u.pitch = 1.0;
+            window.speechSynthesis.speak(u);
+        }
+    } catch (e) {
+        console.warn('Помилка в speakChoicePreview:', e);
+    }
+}
+
+// Озвучення конкретного варіанта відповіді за індексом (Space + 1..4)
+function speakChoiceAtIndex(idx) {
+    const choiceBtns = document.querySelectorAll('.choice-btn');
+    if (!choiceBtns || idx < 0 || idx >= choiceBtns.length) return;
+
+    // Знімаємо попередній ефект підсвічування вимови з усіх кнопок
+    choiceBtns.forEach(b => b.classList.remove('speaking-preview'));
+
+    const btn = choiceBtns[idx];
+    let textToSpeak = '';
+
+    if (Array.isArray(currentChoices) && currentChoices[idx]) {
+        const item = currentChoices[idx];
+        if (typeof item === 'string') {
+            textToSpeak = item;
+        } else if (typeof item === 'object' && item !== null) {
+            textToSpeak = item.word || item.enMasked || '';
+        }
+    }
+
+    if (!textToSpeak) {
+        const textSpan = btn.querySelector('.choice-text') || btn.querySelector('.sentence-text');
+        textToSpeak = textSpan ? textSpan.innerText : btn.innerText.replace(/[1-4]$/, '').trim();
+    }
+
+    if (textToSpeak) {
+        speakChoicePreview(textToSpeak);
+
+        // Плавний візуальний зворотний зв'язок активного варіанта
+        btn.classList.add('speaking-preview');
+        setTimeout(() => {
+            btn.classList.remove('speaking-preview');
+        }, 600);
+    }
+}
+
 function showQuestion() {
     const inputEl = document.getElementById('user-input'); const msgEl = document.getElementById('result-msg');
     const writeBlock = document.getElementById('write-block'); const choiceBlock = document.getElementById('choice-block');
     isShowingAnswer = false; if (msgEl) msgEl.innerText = '';
-    const isWriteType = configMode === 'write' || configMode === 'context-write';
-    setActionBtnLabel('check', isWriteType);
+    hideMistakeMnemonic();
+    hideSelectionTranslateTooltip();
+
+    if (spaceSpeechTimer) {
+        clearTimeout(spaceSpeechTimer);
+        spaceSpeechTimer = null;
+    }
+    isSpacePressed = false;
+    spaceComboTriggered = false;
 
     if (currentIndex < questions.length) {
         const currentObj = questions[currentIndex];
-        const comboBadgeHtml = currentCombo >= 2 ? `<span class="combo-badge">⚡ ${currentCombo}x COMBO!</span>` : '';
-        document.getElementById('quiz-progress').innerHTML = `Картка ${currentIndex + 1} з ${questions.length} | Рахунок: ${score} ${comboBadgeHtml}`;
+        const activeMode = currentObj.mode || configMode;
+        const activeTarget = currentObj.target || configTarget;
+        const isWriteType = activeMode === 'write' || activeMode === 'context-write';
+        setActionBtnLabel('check', isWriteType);
+
+        // Відокремлене відображення прогресу та рівня Smart Mix
+        const progressEl = document.getElementById('quiz-progress');
+        if (progressEl) {
+            progressEl.innerText = `Картка ${currentIndex + 1} з ${questions.length} | Рахунок: ${score}`;
+        }
+
+        const levelBadgeWrap = document.getElementById('quiz-level-badge-wrap');
+        if (levelBadgeWrap) {
+            if (configMaterial === 'smart-mix' && currentObj.level) {
+                const levelLabel = currentObj.level === 3 ? 'Рівень 3: Правопис' : (currentObj.level === 2 ? 'Рівень 2: Слот' : 'Рівень 1: Вибір');
+                levelBadgeWrap.innerHTML = `<span class="smart-level-badge">🔥 ${levelLabel}</span>`;
+            } else {
+                levelBadgeWrap.innerHTML = '';
+            }
+        }
+
+        updateFloatingComboBadge();
         updateLastMistakeBtnVisibility();
         if (isLastMistakeDrawerOpen()) {
             renderLastMistakeDrawerContent();
         }
 
         const wordEl = document.getElementById('target-word');
-        if (configMode.startsWith('context-')) {
-            wordEl.innerHTML = formatContextPrompt(currentObj, configMode);
+        if (activeMode.startsWith('context-')) {
+            wordEl.innerHTML = formatContextPrompt(currentObj, activeMode);
+        } else if (activeMode === 'write') {
+            wordEl.innerHTML = formatWritePrompt(currentObj);
         } else {
             wordEl.innerText = currentObj.question;
         }
 
+        const audioBtn = document.querySelector('.word-card .btn-audio');
+        if (audioBtn) {
+            const isUaWithoutVoice = activeTarget === 'ua' && !activeMode.startsWith('context-') && !preferredUkVoice;
+            if (isUaWithoutVoice) {
+                audioBtn.style.opacity = '0.35';
+                audioBtn.style.cursor = 'not-allowed';
+                audioBtn.title = 'Озвучка стане доступна після відкриття англійської відповіді';
+            } else {
+                audioBtn.style.opacity = '1';
+                audioBtn.style.cursor = 'pointer';
+                audioBtn.title = 'Прослухати вимову (R)';
+            }
+        }
+
         const autoAudio = document.getElementById('auto-audio-toggle').checked;
-        if (autoAudio && (configTarget === 'en' || configMode.startsWith('context-'))) {
+        if (autoAudio && (activeTarget === 'en' || activeMode.startsWith('context-'))) {
             speakCurrentWord();
         }
 
@@ -2759,9 +4611,9 @@ function showQuestion() {
             if (inputEl) { 
                 inputEl.value = ''; 
                 inputEl.disabled = false; 
-                inputEl.placeholder = configMode === 'context-write'
+                inputEl.placeholder = activeMode === 'context-write'
                     ? 'Введіть пропущене слово...'
-                    : (configTarget === 'ua' ? 'Введіть переклад англійською...' : 'Введіть переклад українською...');
+                    : (activeTarget === 'ua' ? 'Введіть переклад англійською...' : 'Введіть переклад українською...');
                 setTimeout(() => inputEl.focus(), 20); 
             }
         } else {
@@ -2782,6 +4634,7 @@ function showQuestion() {
 }
 
 function renderSessionSummary() {
+    markLocalDataChanged();
     let totalSessionMs = sessionLogs.reduce((acc, curr) => acc + (curr.timeMs || 0), 0);
     let totalSec = Math.round(totalSessionMs / 1000);
     const answeredLogs = sessionLogs.filter(item => !item.isSkipped);
@@ -2864,8 +4717,9 @@ function renderSessionSummary() {
 
 function generateChoices(currentObj) {
     const choiceBlock = document.getElementById('choice-block'); choiceBlock.innerHTML = '';
+    const activeMode = currentObj.mode || configMode;
     
-    if (configMode === 'context-match') {
+    if (activeMode === 'context-match') {
         choiceBlock.classList.add('context-match-grid');
         const targetCtxRaw = getContextForWord(currentObj.en);
         const targetObj = getMaskedContext(currentObj.en, targetCtxRaw);
@@ -2920,7 +4774,7 @@ function generateChoices(currentObj) {
             btn.innerHTML = `
                 <div class="context-card-top">
                     <span class="sentence-text">${opt.enMasked}</span>
-                    <span class="key-hint">${idx + 1}</span>
+                    <span class="key-hint" title="Вибрати: [${idx + 1}] | Озвучити: Space + [${idx + 1}]">${idx + 1}</span>
                 </div>
                 ${opt.uaTrans ? `<div class="context-card-sub">(${opt.uaTrans})</div>` : ''}
             `;
@@ -2936,19 +4790,42 @@ function generateChoices(currentObj) {
 
 function generateStandardChoices(currentObj) {
     const choiceBlock = document.getElementById('choice-block');
-    const isContextMode = configMode.startsWith('context-');
+    const activeMode = currentObj.mode || configMode;
+    const activeTarget = currentObj.target || configTarget;
+    const isContextMode = activeMode.startsWith('context-');
     let allAnswersPool = Object.entries(ALL_DATA[selectedModule]).map(pair => {
         if (isContextMode) return pair[0];
-        return configTarget === 'ua' ? pair[0] : pair[1];
+        return activeTarget === 'ua' ? pair[0] : pair[1];
     });
     let pool = allAnswersPool.filter(ans => ans.toLowerCase() !== currentObj.answer.toLowerCase()).sort(() => Math.random() - 0.5);
     let finalChoices = [currentObj.answer, pool[0], pool[1], pool[2]].filter(Boolean).sort(() => Math.random() - 0.5);
     currentChoices = finalChoices;
 
     finalChoices.forEach((choice, idx) => {
-        const btn = document.createElement('button'); btn.className = 'choice-btn';
-        btn.innerHTML = `<span>${choice}</span><span class="key-hint">${idx + 1}</span>`;
-        btn.onclick = () => selectChoice(btn, choice, currentObj.answer); choiceBlock.appendChild(btn);
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'choice-btn';
+        
+        const textSpan = document.createElement('span');
+        textSpan.className = 'choice-text';
+        textSpan.title = `Прослухати вимову слова без вибору (або Space + ${idx + 1})`;
+        textSpan.innerText = choice;
+        textSpan.onclick = (e) => {
+            e.stopPropagation();
+            speakChoicePreview(choice);
+            btn.classList.add('speaking-preview');
+            setTimeout(() => btn.classList.remove('speaking-preview'), 600);
+        };
+
+        const keyHint = document.createElement('span');
+        keyHint.className = 'key-hint';
+        keyHint.innerText = idx + 1;
+        keyHint.title = `Вибрати: [${idx + 1}] | Озвучити: Space + [${idx + 1}]`;
+
+        btn.appendChild(textSpan);
+        btn.appendChild(keyHint);
+        btn.onclick = () => selectChoice(btn, choice, currentObj.answer);
+        choiceBlock.appendChild(btn);
     });
 }
 
@@ -2973,6 +4850,7 @@ function selectContextMatchChoice(clickedBtn, selectedOpt, allOptions) {
     if (isCorrect) {
         currentCombo++;
         score++;
+        updateFloatingComboBadge();
         clickedBtn.classList.add('correct');
         const textSpan = clickedBtn.querySelector('.sentence-text') || clickedBtn.querySelector('.context-card-text');
         if (textSpan) textSpan.innerText = selectedOpt.enFull;
@@ -2983,6 +4861,7 @@ function selectContextMatchChoice(clickedBtn, selectedOpt, allOptions) {
         }
     } else {
         currentCombo = 0;
+        updateFloatingComboBadge();
         clickedBtn.classList.add('incorrect');
 
         allOptions.forEach((opt, idx) => {
@@ -2995,7 +4874,7 @@ function selectContextMatchChoice(clickedBtn, selectedOpt, allOptions) {
 
         if (msgEl) {
             msgEl.className = 'result error';
-            msgEl.innerText = `❌ Схибив!`;
+            msgEl.innerText = '❌ Схибив';
         }
         recordLastMistake({
             question: currentObj.question,
@@ -3027,8 +4906,7 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
     if (isShowingAnswer) return;
     isShowingAnswer = true;
     document.querySelectorAll('.choice-btn').forEach(btn => {
-        btn.disabled = true;
-        btn.style.pointerEvents = 'none';
+        btn.classList.add('answered-locked');
     });
     stopLiveTimer();
     currentWordDuration = Date.now() - wordStartTime;
@@ -3038,9 +4916,11 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
 
     const isCorrect = isFuzzyMatch(selectedAnswer, correctAnswer);
     const currentObj = questions[currentIndex];
+    const activeMode = currentObj.mode || configMode;
+    const activeTarget = currentObj.target || configTarget;
 
     // Highlight slot in prompt if in context-slot mode
-    if (configMode === 'context-slot') {
+    if (activeMode === 'context-slot') {
         const slotEl = document.querySelector('#target-word .blank');
         if (slotEl) {
             if (isCorrect) {
@@ -3056,6 +4936,10 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
         }
     }
 
+    if (activeMode.startsWith('context-')) {
+        revealFullContextTranslation(currentObj);
+    }
+
     document.querySelectorAll('.choice-btn').forEach(btn => {
         const span = btn.querySelector('span:not(.key-hint)') || btn;
         if (span.innerText.toLowerCase().trim() === correctAnswer.toLowerCase().trim()) {
@@ -3068,6 +4952,7 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
     if (isCorrect) {
         currentCombo++;
         score++;
+        updateFloatingComboBadge();
         if (clickedBtn) {
             clickedBtn.style.background = 'var(--green)';
             clickedBtn.style.color = '#11111b';
@@ -3076,24 +4961,41 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
             msgEl.className = 'result success';
             msgEl.innerText = currentCombo >= 2 ? `🔥 Правильно! (Combo x${currentCombo})` : '🔥 Правильно!';
         }
+        const audioBtn = document.querySelector('.word-card .btn-audio');
+        if (audioBtn) {
+            audioBtn.style.opacity = '1';
+            audioBtn.style.cursor = 'pointer';
+            audioBtn.title = 'Прослухати вимову (R)';
+        }
     } else {
         currentCombo = 0;
+        updateFloatingComboBadge();
         if (clickedBtn) {
             clickedBtn.style.background = 'var(--red)';
             clickedBtn.style.color = '#11111b';
         }
         if (msgEl) {
             msgEl.className = 'result error';
-            msgEl.innerText = `❌ Схибив! (Вірно: ${correctAnswer})`;
+            msgEl.innerText = '❌ Схибив';
         }
+        const audioBtn = document.querySelector('.word-card .btn-audio');
+        if (audioBtn) {
+            audioBtn.style.opacity = '1';
+            audioBtn.style.cursor = 'pointer';
+            audioBtn.title = 'Прослухати вимову (R)';
+        }
+        const enWord = currentObj.en || (activeTarget === 'en' ? currentObj.question : currentObj.answer);
+        const uaWord = currentObj.ua || (activeTarget === 'en' ? currentObj.answer : currentObj.question);
         recordLastMistake({
             question: currentObj.question,
             answer: correctAnswer,
             userAnswer: selectedAnswer,
-            en: currentObj.en || (configTarget === 'en' ? currentObj.question : currentObj.answer),
-            ua: currentObj.ua || (configTarget === 'en' ? currentObj.answer : currentObj.question),
+            en: enWord,
+            ua: uaWord,
+            association: currentObj.association || getAssociationForWord(enWord),
             index: currentIndex
         });
+        showMistakeMnemonic(currentObj);
     }
 
     updateMemoryAlgorithm(currentObj, isCorrect, currentWordDuration);
@@ -3108,9 +5010,12 @@ function selectChoice(clickedBtn, selectedAnswer, correctAnswer) {
 }
 
 function handleQuizSubmit() {
-    if (configMode === 'write' || configMode === 'context-write') {
+    const currentObj = questions[currentIndex];
+    const activeMode = currentObj?.mode || configMode;
+    const activeTarget = currentObj?.target || configTarget;
+
+    if (activeMode === 'write' || activeMode === 'context-write') {
         const inputEl = document.getElementById('user-input'); const msgEl = document.getElementById('result-msg'); const btnEl = document.getElementById('action-btn');
-        const currentObj = questions[currentIndex];
         if (!isShowingAnswer) {
             stopLiveTimer();
             currentWordDuration = Date.now() - wordStartTime;
@@ -3121,16 +5026,22 @@ function handleQuizSubmit() {
 
             if (isCorrect) {
                 currentCombo++;
+                updateFloatingComboBadge();
             } else {
                 currentCombo = 0;
+                updateFloatingComboBadge();
+                const enWord = currentObj.en || (activeTarget === 'en' ? currentObj.question : currentObj.answer);
+                const uaWord = currentObj.ua || (activeTarget === 'en' ? currentObj.answer : currentObj.question);
                 recordLastMistake({
                     question: currentObj.question,
                     answer: currentObj.answer,
                     userAnswer: userAns || 'Порожня відповідь',
-                    en: currentObj.en || (configTarget === 'en' ? currentObj.question : currentObj.answer),
-                    ua: currentObj.ua || (configTarget === 'en' ? currentObj.answer : currentObj.question),
+                    en: enWord,
+                    ua: uaWord,
+                    association: currentObj.association || getAssociationForWord(enWord),
                     index: currentIndex
                 });
+                showMistakeMnemonic(currentObj);
             }
 
             updateMemoryAlgorithm(currentObj, isCorrect, currentWordDuration);
@@ -3143,8 +5054,25 @@ function handleQuizSubmit() {
                 timeMs: currentWordDuration
             });
 
+            if (activeMode.startsWith('context-')) {
+                const blankEl = document.querySelector('#target-word .blank');
+                if (blankEl) {
+                    blankEl.innerText = currentObj.answer;
+                    blankEl.style.background = isCorrect ? 'var(--green)' : 'var(--red)';
+                    blankEl.style.color = '#11111b';
+                    blankEl.style.borderColor = isCorrect ? 'var(--green)' : 'var(--red)';
+                }
+                revealFullContextTranslation(currentObj);
+            }
+
             if (isCorrect) { score++; msgEl.className = 'result success'; msgEl.innerText = currentCombo >= 2 ? `🔥 Точно в ціль! (Combo x${currentCombo})` : '🔥 Точно в ціль!'; }
             else { msgEl.className = 'result error'; msgEl.innerText = `❌ Правильно: ${currentObj.answer}`; }
+            const audioBtn = document.querySelector('.word-card .btn-audio');
+            if (audioBtn) {
+                audioBtn.style.opacity = '1';
+                audioBtn.style.cursor = 'pointer';
+                audioBtn.title = 'Прослухати вимову (R)';
+            }
             setActionBtnLabel('next', true);
         } else { currentIndex++; showQuestion(); }
     } else {
@@ -3355,6 +5283,8 @@ function stopQuizSession() {
     currentIndex = 0;
     score = 0;
     currentCombo = 0;
+    updateFloatingComboBadge();
+    hideSelectionTranslateTooltip();
     sessionLogs = [];
     lastMistakeData = null;
     lastMistakeIndex = null;
@@ -3458,24 +5388,41 @@ document.addEventListener('keydown', function (e) {
     if (!quizScreen.classList.contains('active')) return;
 
     const isInputActive = (document.activeElement?.tagName === 'INPUT' && !document.activeElement?.disabled) || document.activeElement?.tagName === 'TEXTAREA' || document.activeElement?.isContentEditable;
+    const hasModifier = e.ctrlKey || e.metaKey || e.altKey || e.shiftKey;
 
-    if ((e.key === 'r' || e.key === 'R') && !isInputActive) {
+    if ((e.key === 'r' || e.key === 'R') && !isInputActive && !hasModifier) {
         e.preventDefault();
         speakCurrentWord();
         return;
     }
 
-    if ((e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') && !isInputActive) {
+    const activeMode = questions[currentIndex]?.mode || configMode;
+    const isChoiceMode = ['choice', 'context-slot', 'context-match'].includes(activeMode);
+
+    // Клавіша Space (Пробіл) — ВИНЯТКОВО ДЛЯ ОЗВУЧЕННЯ (перехід до наступного тесту тільки через Enter)
+    if ((e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') && !isInputActive && !e.ctrlKey && !e.metaKey && !e.altKey) {
         e.preventDefault();
-        if (isShowingAnswer) {
-            currentIndex++;
-            showQuestion();
+        if (e.repeat) return;
+
+        isSpacePressed = true;
+        lastSpaceDownTime = Date.now();
+        spaceComboTriggered = false;
+
+        if (isChoiceMode) {
+            // У режимах вибору даємо вікно 200мс для шорткату Space + [1..4], щоб не накладався звук запитання
+            clearTimeout(spaceSpeechTimer);
+            spaceSpeechTimer = setTimeout(() => {
+                if (!spaceComboTriggered && currentActiveScreen === 'quiz-screen') {
+                    speakCurrentWord();
+                }
+            }, 200);
         } else {
             speakCurrentWord();
         }
         return;
     }
 
+    // Клавіша Enter — перехід до наступного запитання або перевірка вводу
     if (e.key === 'Enter') {
         e.preventDefault();
         if (isLastMistakeDrawerOpen()) {
@@ -3486,21 +5433,56 @@ document.addEventListener('keydown', function (e) {
         return;
     }
 
-    if (['choice', 'context-slot', 'context-match'].includes(configMode) && !isShowingAnswer && !isInputActive) {
+    // Цифрові клавіші [1..4] для вибору або озвучення варіанта
+    if (isChoiceMode && !isInputActive) {
         let choiceIndex = -1;
         if (['1', '2', '3', '4'].includes(e.key)) {
             choiceIndex = parseInt(e.key, 10) - 1;
+        } else if (e.code && e.code.startsWith('Digit')) {
+            const num = parseInt(e.code.replace('Digit', ''), 10);
+            if (num >= 1 && num <= 4) choiceIndex = num - 1;
         } else if (e.code && e.code.startsWith('Numpad')) {
             const num = parseInt(e.code.replace('Numpad', ''), 10);
             if (num >= 1 && num <= 4) choiceIndex = num - 1;
         }
+
         if (choiceIndex >= 0) {
             e.preventDefault();
-            const choiceBtns = document.querySelectorAll('.choice-btn');
-            if (choiceBtns[choiceIndex]) {
-                choiceBtns[choiceIndex].click();
+            const isSpaceCombo = isSpacePressed || (Date.now() - lastSpaceDownTime < 220);
+
+            if (isSpaceCombo) {
+                // Шорткат Space + 1..4: Озвучити варіант (працює і до, і після вибору відповіді)
+                spaceComboTriggered = true;
+                if (spaceSpeechTimer) {
+                    clearTimeout(spaceSpeechTimer);
+                    spaceSpeechTimer = null;
+                }
+                speakChoiceAtIndex(choiceIndex);
+            } else if (!isShowingAnswer) {
+                // Звичайне натискання 1..4: Вибір варіанта (лише коли відповідь ще не вибрана)
+                const choiceBtns = document.querySelectorAll('.choice-btn');
+                if (choiceBtns[choiceIndex]) {
+                    choiceBtns[choiceIndex].click();
+                }
             }
         }
+    }
+});
+
+// Відстеження відпускання клавіші Space для скидання комбо-шорткату
+document.addEventListener('keyup', function (e) {
+    if (e.key === ' ' || e.key === 'Spacebar' || e.code === 'Space') {
+        isSpacePressed = false;
+    }
+});
+
+// Безпечний скид стану хоткеїв при втраті фокусу вікна (Tab switch або OS popup)
+window.addEventListener('blur', function () {
+    isSpacePressed = false;
+    spaceComboTriggered = false;
+    if (spaceSpeechTimer) {
+        clearTimeout(spaceSpeechTimer);
+        spaceSpeechTimer = null;
     }
 });
 
@@ -3584,11 +5566,278 @@ function checkDevReloadNotice() {
     }
 }
 
+// --- Мнемонічний сейф: Інтерактивні механіки додавання та показу асоціацій ---
+
+const DEFAULT_MNEMONICS = {
+    "jealous": [
+        "Желе / Джем: ревнивець від злості тремтить як желе",
+        "Уяви: ревнивий погляд на чужу банку солодкого джему"
+    ],
+    "bizarre": [
+        "Базар: дивні й чудернацькі речі на східному базарі",
+        "Уяви: дивний продавець у чудернацькому тюрбані"
+    ],
+    "embarrassed": [
+        "Бар: зніяковів, коли в барі впав зі стільця",
+        "Бар’єр: зніяковів і виставив навколо себе захисний бар’єр"
+    ],
+    "reliable": [
+        "Реле: надійне реле в електрощитку ніколи не підведе",
+        "Рельси: надійний потяг міцно тримається рейок"
+    ],
+    "cough": [
+        "Кава: закашлявся від гарячої міцної кави",
+        "Кофта: кашляє і кутається в теплу затишну кофту"
+    ],
+    "curious": [
+        "Кюрі: Марія Кюрі була дуже допитливою вченою",
+        "Кура: допитлива курка заглядає в усі щілини"
+    ],
+    "fancy": [
+        "Фентезі: фантастично вишуканий і модний одяг",
+        "Уяви: фешенебельний дорогий ресторан з кришталем"
+    ],
+    "frightened": [
+        "Фрахт: переляканий капітан у штормовому морі",
+        "Уяви: переляканий погляд кота в темряві"
+    ],
+    "grateful": [
+        "Грейт (great): велика й щира вдячність за поміч",
+        "Гріти: тепла щира вдячність зігріває серце"
+    ],
+    "depressed": [
+        "Прес: пригнічений стан, ніби під важким пресом",
+        "Уяви: пригнічена людина дивиться на сірий холодний дощ"
+    ],
+    "disappointed": [
+        "Дис-епойнт: призначена зустріч прикро розчарувала",
+        "Уяви: очікував свята, але сильно розчарувався"
+    ],
+    "excited": [
+        "Сайт: захоплено й збуджено переглядає новий сайт",
+        "Уяви: стрибає від радісного хвилювання та енергії"
+    ],
+    "terrified": [
+        "Терор: жахливо переляканий через небезпеку",
+        "Уяви: очі від смертельного страху округлилися"
+    ]
+};
+
+const PRESET_MNEMONICS = DEFAULT_MNEMONICS;
+
+function getMnemonicSuggestions(enWord) {
+    if (!enWord) return [];
+    const cleanEn = enWord.trim();
+    const lower = cleanEn.toLowerCase();
+
+    if (DEFAULT_MNEMONICS[lower]) {
+        return DEFAULT_MNEMONICS[lower];
+    }
+
+    let uaTrans = '';
+    if (typeof ALL_DATA !== 'undefined' && typeof selectedModule !== 'undefined' && selectedModule && ALL_DATA[selectedModule]) {
+        uaTrans = ALL_DATA[selectedModule][cleanEn] || ALL_DATA[selectedModule][lower] || '';
+    }
+    if (!uaTrans && typeof questions !== 'undefined' && questions[currentIndex]) {
+        uaTrans = questions[currentIndex].ua || '';
+    }
+    const shortUa = uaTrans ? uaTrans.split(/[;,/]/)[0].trim() : '';
+
+    return [
+        `💡 Звучить як: [співзвучне укр. слово] → ${shortUa || cleanEn}`,
+        `🎬 Сюжет: уяви курйозну ситуацію зі значенням «${shortUa || cleanEn}»`,
+        `🧠 Якір: поєднай форму «${cleanEn}» зі значенням «${shortUa}»`
+    ];
+}
+
+function applyMnemonicSuggestion(inputId, text) {
+    const input = document.getElementById(inputId);
+    if (!input) return;
+    input.value = text;
+    input.focus();
+    try {
+        input.setSelectionRange(text.length, text.length);
+    } catch (e) {}
+}
+
+function showMistakeMnemonic(currentObj) {
+    const box = document.getElementById('quiz-mnemonic-box');
+    if (!box || !currentObj) return;
+    const enWord = currentObj.en || (currentObj.target === 'en' ? currentObj.question : currentObj.answer) || currentObj.question;
+    const assoc = getAssociationForWord(enWord);
+
+    box.style.display = 'block';
+    if (assoc) {
+        box.innerHTML = `
+            <div class="mnemonic-hint" id="quiz-mnemonic-hint-content">
+                <span>💡 Твоя асоціація: <strong>${escapeHtml(assoc)}</strong></span>
+                <button type="button" class="btn-edit-mnemonic-inline" onclick="promptInlineMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')" title="Редагувати асоціацію">✏️</button>
+            </div>
+            <div id="quiz-mnemonic-editor-wrap" style="display: none;"></div>
+        `;
+    } else {
+        box.innerHTML = `
+            <div class="mnemonic-hint empty" id="quiz-mnemonic-hint-content">
+                <button type="button" class="btn-add-mnemonic-inline" onclick="promptInlineMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')">
+                    💡 + Додати асоціацію-якорь
+                </button>
+            </div>
+            <div id="quiz-mnemonic-editor-wrap" style="display: none;"></div>
+        `;
+    }
+}
+
+function hideMistakeMnemonic() {
+    const box = document.getElementById('quiz-mnemonic-box');
+    if (box) {
+        box.style.display = 'none';
+        box.innerHTML = '';
+    }
+}
+
+function promptInlineMnemonic(enWord) {
+    const content = document.getElementById('quiz-mnemonic-hint-content');
+    const wrap = document.getElementById('quiz-mnemonic-editor-wrap');
+    if (!wrap) return;
+
+    if (content) content.style.display = 'none';
+    wrap.style.display = 'block';
+
+    const currentAssoc = getAssociationForWord(enWord);
+    const suggestions = getMnemonicSuggestions(enWord);
+    const chipsHtml = suggestions.length > 0 ? `
+        <div class="mnemonic-chips-wrap">
+            <div class="mnemonic-chips-label">💡 Швидкі ідеї (клікніть щоб підставити):</div>
+            <div class="mnemonic-chips-row">
+                ${suggestions.map(s => `
+                    <button type="button" class="mnemonic-chip" onclick="applyMnemonicSuggestion('inline-mnemonic-input', '${escapeHtml(s).replace(/'/g, "\\'")}')">
+                        ${escapeHtml(s)}
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
+    wrap.innerHTML = `
+        ${chipsHtml}
+        <div class="mnemonic-inline-editor">
+            <input type="text" id="inline-mnemonic-input" class="mnemonic-inline-input" placeholder="Наприклад: bizarre -> базар" value="${escapeHtml(currentAssoc)}" autocomplete="off" />
+            <button type="button" class="btn-save-mnemonic" onclick="saveInlineMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')">Зберегти</button>
+            <button type="button" class="btn-cancel-mnemonic" onclick="cancelInlineMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')">Скасувати</button>
+        </div>
+    `;
+
+    const input = document.getElementById('inline-mnemonic-input');
+    if (input) {
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                e.stopPropagation();
+                saveInlineMnemonic(enWord);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                cancelInlineMnemonic(enWord);
+            }
+        });
+    }
+}
+
+function saveInlineMnemonic(enWord) {
+    const input = document.getElementById('inline-mnemonic-input');
+    const text = input ? input.value.trim() : '';
+    saveAssociationForWord(enWord, text);
+    if (questions[currentIndex]) {
+        questions[currentIndex].association = text;
+    }
+    if (lastMistakeData) {
+        lastMistakeData.association = text;
+    }
+    const currentObj = questions[currentIndex] || { en: enWord };
+    showMistakeMnemonic(currentObj);
+    if (isLastMistakeDrawerOpen()) {
+        renderLastMistakeDrawerContent();
+    }
+}
+
+function cancelInlineMnemonic(enWord) {
+    const currentObj = questions[currentIndex] || { en: enWord };
+    showMistakeMnemonic(currentObj);
+}
+
+function promptDrawerMnemonic(enWord) {
+    const btnWrap = document.getElementById('drawer-mnemonic-btn-wrap');
+    const textWrap = document.getElementById('drawer-mnemonic-text');
+    const editWrap = document.getElementById('drawer-mnemonic-edit-wrap');
+    if (!editWrap) return;
+
+    if (btnWrap) btnWrap.style.display = 'none';
+    if (textWrap) textWrap.style.display = 'none';
+    editWrap.style.display = 'block';
+
+    const currentAssoc = getAssociationForWord(enWord);
+    const suggestions = getMnemonicSuggestions(enWord);
+    const chipsHtml = suggestions.length > 0 ? `
+        <div class="mnemonic-chips-wrap">
+            <div class="mnemonic-chips-label">💡 Швидкі ідеї (клікніть щоб підставити):</div>
+            <div class="mnemonic-chips-row">
+                ${suggestions.map(s => `
+                    <button type="button" class="mnemonic-chip" onclick="applyMnemonicSuggestion('drawer-mnemonic-input', '${escapeHtml(s).replace(/'/g, "\\'")}')">
+                        ${escapeHtml(s)}
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    ` : '';
+
+    editWrap.innerHTML = `
+        ${chipsHtml}
+        <div class="mnemonic-inline-editor" style="margin-top: 6px;">
+            <input type="text" id="drawer-mnemonic-input" class="mnemonic-inline-input" placeholder="Наприклад: bizarre -> базар" value="${escapeHtml(currentAssoc)}" autocomplete="off" />
+            <button type="button" class="btn-save-mnemonic" onclick="saveDrawerMnemonic('${escapeHtml(enWord).replace(/'/g, "\\'")}')">Зберегти</button>
+            <button type="button" class="btn-cancel-mnemonic" onclick="renderLastMistakeDrawerContent()">Скасувати</button>
+        </div>
+    `;
+
+    const input = document.getElementById('drawer-mnemonic-input');
+    if (input) {
+        input.focus();
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                e.stopPropagation();
+                saveDrawerMnemonic(enWord);
+            } else if (e.key === 'Escape') {
+                e.preventDefault();
+                e.stopPropagation();
+                renderLastMistakeDrawerContent();
+            }
+        });
+    }
+}
+
+function saveDrawerMnemonic(enWord) {
+    const input = document.getElementById('drawer-mnemonic-input');
+    const text = input ? input.value.trim() : '';
+    saveAssociationForWord(enWord, text);
+    if (lastMistakeData) {
+        lastMistakeData.association = text;
+    }
+    if (questions[currentIndex] && (questions[currentIndex].en === enWord || questions[currentIndex].question === enWord)) {
+        questions[currentIndex].association = text;
+        showMistakeMnemonic(questions[currentIndex]);
+    }
+    renderLastMistakeDrawerContent();
+}
+
 window.onload = function () {
     loadUserSettings();
     setupExcelDropzone();
+    initSelectionTranslateFeature();
     switchScreen('menu-screen');
     checkDevReloadNotice();
+    checkAndAutoSyncCloudOnStartup();
 };
 
 (function () {
